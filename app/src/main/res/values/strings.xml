@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TMS</string>
+    <string name="main_button">Main button</string>
+    <string name="go_to_second_screen">Go to second screen</string>
+    <string name="go_to_main_screen">go to main screen</string>
+    <string name="add_note">add note</string>
+    <string name="add_new_note">add new note</string>
+</resources>
