@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Message
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 
@@ -14,10 +15,9 @@ class SplashActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_splash)
 
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            startActivity(Intent(this, MainActivity::class.java))
-//        }, 3000)
-        startActivity(Intent(this, MainActivity::class.java))
+        Handler(Looper.getMainLooper()).postDelayed({
+            startActivity(Intent(this, MainActivity::class.java))
+        }, 3000)
 
     }
 }
@@ -29,9 +29,9 @@ internal class LooperThread : Thread() {
         Looper.prepare()
 
         mHandler = object : Handler(Looper.myLooper()!!) {
-//            override fun handleMessage(msg: Message?) {
-//                // process incoming messages here
-//            }
+            override fun handleMessage(msg: Message) {
+                // process incoming messages here
+            }
         }
 
         Looper.loop()
