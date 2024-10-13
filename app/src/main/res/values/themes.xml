@@ -2,8 +2,12 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.TMS" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<!--        <item name="colorPrimary">@color/my_light_primary</item>-->
+        <item name="android:colorBackground">#BCE5E7</item>
+        <item name="android:colorButtonNormal">#B4123C</item>
+        <item name="android:tint">#B4123C</item>
     </style>
 
     <style name="Theme.TMS" parent="Base.Theme.TMS" />
+    <color name="custom_theme_color">#b0b0ff</color>
 </resources>

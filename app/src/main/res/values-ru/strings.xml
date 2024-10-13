@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TMS</string>
+    <string name="main_button">Основная кнопка</string>
+    <string name="go_to_second_screen">На второй экран</string>
+    <string name="go_to_main_screen">На основной экран</string>
+    <string name="add_note">Добавить заметку</string>
+    <string name="add_new_note">добавить новую заметку</string>
+    <string name="title_activity_login">Логин</string>
+    <string name="prompt_email">Почта</string>
+    <string name="prompt_password">Пароль</string>
+    <string name="action_sign_in">Возйти или зарегистрироваться</string>
+    <string name="action_sign_in_short">Войти</string>
+    <string name="welcome">Добро пожаловать!</string>
+    <string name="invalid_username">Не правильное имя пользователя</string>
+    <string name="invalid_password">Пароль должен быть больше 5 символов</string>
+    <string name="login_failed">Неудалось войти</string>
+    <string name="note_context">Контекст заметки</string>
+    <string name="note_titile">Тема заметки</string>
+    <string name="save_notes">Сохранить заметки</string>
+    <string name="notes">Заметки:</string>
+    <string name="note_title">Тема заметки</string>
+    <string name="content_text">Текст контента</string>
+    <string name="my_button">Моя кнопка</string>
+</resources>

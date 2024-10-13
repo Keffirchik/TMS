@@ -3,5 +3,7 @@
     <style name="Base.Theme.TMS" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:colorBackground">#033638</item>
     </style>
+    <color name="custom_theme_color">#5B096B</color>
 </resources>

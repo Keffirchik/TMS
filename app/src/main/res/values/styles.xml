@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyStyle">
+        <item name="backgroundColor">#D5D239</item>
+        <item name="fontStyle">italic</item>
+        <item name="android:colorButtonNormal">#7017AD</item>
+        <item name="fontFamily">@string/content_text</item>
+        <item name="fontWeight">@integer/material_motion_duration_long_2</item>
+        <item name="colorOutline">#D539C0</item>
+        <item name="colorPrimary">#813912</item>
+        <item name="colorSurface">#181C85</item>
+        <item name="iconSize">77dp</item>
+        <item name="android:textColor">#00BCD4</item>
+    </style>
+
+</resources>
