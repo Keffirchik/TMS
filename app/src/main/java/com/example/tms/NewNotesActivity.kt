@@ -42,6 +42,8 @@ class NewNotesActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_new_notes)
 
+        noteList = ArrayList()
+
         noteContainer = findViewById(R.id.notesContainer)
         saveButton = findViewById(R.id.saveButton)
 
@@ -90,7 +92,6 @@ class NewNotesActivity : AppCompatActivity() {
             createNoteView(note)
             clearInputFields()
         }
-
     }
 
     private fun clearInputFields() {
@@ -114,49 +115,50 @@ class NewNotesActivity : AppCompatActivity() {
             showDeleteDialog(note)
             return@setOnClickListener
         }
-
+        noteContainer.addView(noteView)
     }
 
     private fun showDeleteDialog(note: Note) {
         builder = AlertDialog.Builder(this)
         builder.setTitle("Delete this note.")
         builder.setMessage("Are you sure you want delete this note?")
-        //val a : (DialogInterface, Int)? = null
-        builder.setPositiveButton(
-            "Delete"
-        ) { _, _ -> deleteNoteAndRefresh(note) }
-//        builder.setPositiveButton(
+        val a = object : DialogInterface.OnClickListener {
+            override fun onClick(p0: DialogInterface?, p1: Int) {
+                deleteNoteAndRefresh(note)
+            }
 
+        }
+        builder.setPositiveButton(
+            "Delete", a
+        )
+//        builder.setPositiveButton(
+//
 //            "Delete", DialogInterface.OnClickListener(
 //                deleteNoteAndRefresh(note)
 //            )
 //        )
         builder.setNeutralButton("Cancel", null)
         builder.show()
-
     }
 
     private fun deleteNoteAndRefresh(note: Note) {
         noteList.remove(note)
         saveNotesToPreferences()
         refreshNoteViews()
-        //val a : (DialogInterface, Int)? = null
         return
     }
 
     private fun refreshNoteViews() {
         noteContainer.removeAllViews()
-        saveNotesToPreferences()
-        refreshNoteViews()
+        displayNotes();
     }
-
 
     private fun saveNotesToPreferences() {
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
         editor = sharedPreferences.edit()
 
         editor.putInt(KEY_NOTE_COUNT, noteList.size)
-        for (i in 1..noteList.size) {
+        for (i in 1..<noteList.size) {
             val note = noteList[i]
             editor.putString("note_title_" + i, note.title)
             editor.putString("note_content_" + i, note.content)
