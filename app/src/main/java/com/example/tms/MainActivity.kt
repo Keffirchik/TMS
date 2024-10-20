@@ -24,9 +24,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var noteContainer: LinearLayout
     private lateinit var noteList: MutableList<Note>
 
-    private lateinit var titleEditText: EditText
-    private lateinit var contentEditText: EditText
-
     private lateinit var addNewNote: Button
 
     private lateinit var sharedPreferences: SharedPreferences
