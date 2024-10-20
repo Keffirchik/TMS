@@ -131,12 +131,7 @@ class NewNotesActivity : AppCompatActivity() {
         builder.setPositiveButton(
             "Delete", a
         )
-//        builder.setPositiveButton(
-//
-//            "Delete", DialogInterface.OnClickListener(
-//                deleteNoteAndRefresh(note)
-//            )
-//        )
+
         builder.setNeutralButton("Cancel", null)
         builder.show()
     }
