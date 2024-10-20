@@ -11,10 +11,10 @@
     <ImageView
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="150dp"
         android:src="@drawable/icon_account_circle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
