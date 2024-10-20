@@ -4,5 +4,12 @@
     <string name="go_to_second_screen">Go to second screen</string>
     <string name="go_to_main_screen">go to main screen</string>
     <string name="add_note">add note</string>
-    <string name="add_new_note">add new note</string>
+    <string name="add_new_note">Add new note</string>
+    <string name="notes">Notes:</string>
+    <string name="note_content">Note content</string>
+    <string name="note_title">Note title</string>
+    <string name="content_text">content text</string>
+    <string name="date">Date</string>
+    <string name="cancel_note">cancel note</string>
+    <string name="save_note">Save note</string>
 </resources>
