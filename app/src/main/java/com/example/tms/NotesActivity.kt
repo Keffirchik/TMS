@@ -12,8 +12,8 @@ import kotlin.properties.Delegates
 
 class NotesActivity : AppCompatActivity() {
 
-    private val PREFS_NAME: String = "NotePrefs"
-    private val KEY_NOTE_COUNT: String = "NoteCount"
+    private val prefsName: String = "NotePrefs"
+    private val keyNoteCount: String = "NoteCount"
 
     private lateinit var titleEditText: EditText
     private lateinit var contentEditText: EditText
@@ -59,15 +59,15 @@ class NotesActivity : AppCompatActivity() {
     }
 
     private fun saveNotesToPreferences(title: String, content: String, noteDate: String) {
-        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
         editor = sharedPreferences.edit()
-        noteCount = sharedPreferences.getInt(KEY_NOTE_COUNT, 0)
+        noteCount = sharedPreferences.getInt(keyNoteCount, 0)
 
         editor.putString("note_title_$noteCount", title)
         editor.putString("note_content_$noteCount", content)
         editor.putString("note_date_$noteCount", noteDate)
 
-        editor.putInt(KEY_NOTE_COUNT, noteCount + 1)
+        editor.putInt(keyNoteCount, noteCount + 1)
 
         editor.apply()
     }

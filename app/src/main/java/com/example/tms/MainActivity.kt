@@ -17,8 +17,8 @@ import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
 
-    private val PREFS_NAME: String = "NotePrefs"
-    private val KEY_NOTE_COUNT: String = "NoteCount"
+    private val prefsName: String = "NotePrefs"
+    private val keyNoteCount: String = "NoteCount"
 
     private lateinit var noteContainer: LinearLayout
     private lateinit var noteList: MutableList<Note>
@@ -65,13 +65,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadNotesFromPreferences() {
-        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
-        noteCount = sharedPreferences.getInt(KEY_NOTE_COUNT, 0)
+        sharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
+        noteCount = sharedPreferences.getInt(keyNoteCount, 0)
 
         for (i in 0..<noteCount) {
-            val title = sharedPreferences.getString("note_title_" + i, "")
-            val content = sharedPreferences.getString("note_content_" + i, "")
-            val noteDate = sharedPreferences.getString("note_date_" + i, "")
+            val title = sharedPreferences.getString("note_title_$i", "")
+            val content = sharedPreferences.getString("note_content_$i", "")
+            val noteDate = sharedPreferences.getString("note_date_$i", "")
 
             val note = Note(title, content, noteDate)
 
@@ -129,14 +129,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun saveNotesToPreferences() {
-        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
         editor = sharedPreferences.edit()
 
-        editor.putInt(KEY_NOTE_COUNT, noteList.size)
+        editor.putInt(keyNoteCount, noteList.size)
         for (i in 1..<noteList.size) {
             val note = noteList[i]
-            editor.putString("note_title_" + i, note.title)
-            editor.putString("note_content_" + i, note.content)
+            editor.putString("note_title_$i", note.title)
+            editor.putString("note_content_$i", note.content)
         }
         editor.apply()
     }
