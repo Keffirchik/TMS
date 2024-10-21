@@ -61,13 +61,13 @@ class NotesActivity : AppCompatActivity() {
     private fun saveNotesToPreferences(title: String, content: String, noteDate: String) {
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
         editor = sharedPreferences.edit()
-        noteCount = sharedPreferences.getInt(KEY_NOTE_COUNT, 0) + 1
+        noteCount = sharedPreferences.getInt(KEY_NOTE_COUNT, 0)
 
         editor.putString("note_title_$noteCount", title)
         editor.putString("note_content_$noteCount", content)
         editor.putString("note_date_$noteCount", noteDate)
 
-        editor.putInt(KEY_NOTE_COUNT, noteCount)
+        editor.putInt(KEY_NOTE_COUNT, noteCount + 1)
 
         editor.apply()
     }
