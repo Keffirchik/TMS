@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +27,14 @@ class MainActivity : AppCompatActivity() {
 
         buttonGoToSecondActivity.setOnClickListener {
             startActivity(intentGoToSecondActivity)
+        }
+
+        val noteButton = findViewById<Button>(R.id.acb_go_to_notes_am)
+
+        val intentGoToNotesActivity = Intent(this.baseContext, NotesActivity::class.java)
+
+        noteButton.setOnClickListener {
+            startActivity(intentGoToNotesActivity)
         }
 
     }
