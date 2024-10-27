@@ -27,4 +27,10 @@
         android:layout_marginTop="4dp"
         android:text="@string/date" />
 
+    <Button
+        android:id="@+id/ly_delete_button_ni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_note" />
+
 </LinearLayout>

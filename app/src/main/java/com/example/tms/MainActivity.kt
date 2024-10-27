@@ -37,5 +37,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(intentGoToNotesActivity)
         }
 
+        val noteButtonSecond = findViewById<Button>(R.id.acb_go_to_second_notes_am)
+
+        val intentGoToNotes2Activity = Intent(this.baseContext, RecyclerNotesActivity::class.java)
+
+        noteButtonSecond.setOnClickListener {
+            startActivity(intentGoToNotes2Activity)
+        }
+
     }
 }

@@ -29,4 +29,7 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="username">Username</string>
+    <string name="recycle_notes">Recycle Notes:</string>
+    <string name="delete_note">Delete note</string>
+    <string name="go_to_recycler_notes">Go to recycler notes</string>
 </resources>
