@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         val mainButton = findViewById<Button>(R.id.main_button)
 
-        val intentMainButton = Intent(this.baseContext, NotesActivity::class.java)
+        val intentMainButton = Intent(this.baseContext, MainLoginActivity::class.java)
 
         mainButton.setOnClickListener {
             startActivity(intentMainButton)
