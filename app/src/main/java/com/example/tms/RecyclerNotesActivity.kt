@@ -92,7 +92,7 @@ class RecyclerNotesActivity : AppCompatActivity() {
 //    }
 
     private fun displayNotes() {
-        recyclerView.adapter = AdapterClass(noteList)
+        recyclerView.adapter = AdapterClass(noteList) { id -> deleteNoteAndRefresh(id) }
 //        for (note in noteList) {
 //            createNoteView(note)
 //        }
@@ -114,48 +114,46 @@ class RecyclerNotesActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("InflateParams")
-    private fun createNoteView(note: Note) {
-        noteView = layoutInflater.inflate(R.layout.note_item, null)
-        titleTextView = noteView.findViewById(R.id.titleTextView)
-        contentTextView = noteView.findViewById(R.id.contentTextView)
-        dateTextView = noteView.findViewById(R.id.dateTextView)
+//    @SuppressLint("InflateParams")
+//    private fun createNoteView(note: Note) {
+//        noteView = layoutInflater.inflate(R.layout.note_item, null)
+//        titleTextView = noteView.findViewById(R.id.titleTextView)
+//        contentTextView = noteView.findViewById(R.id.contentTextView)
+//        dateTextView = noteView.findViewById(R.id.dateTextView)
+//
+//        titleTextView.text = note.title
+//        contentTextView.text = note.content
+//        dateTextView.text = note.noteDate.toString()
+//
+//        noteView.setOnClickListener {
+//            showDeleteDialog(note)
+//            return@setOnClickListener
+//        }
+//        noteContainer.addView(noteView)
+//    }
 
-        titleTextView.text = note.title
-        contentTextView.text = note.content
-        dateTextView.text = note.noteDate.toString()
+//    private fun showDeleteDialog(note: Note) {
+//        builder = AlertDialog.Builder(this)
+//        builder.setTitle("Delete this note.")
+//        builder.setMessage("Are you sure you want delete this note?")
+//        val a = object : DialogInterface.OnClickListener {
+//            override fun onClick(p0: DialogInterface?, p1: Int) {
+//                deleteNoteAndRefresh(note)
+//            }
+//
+//        }
+//        builder.setPositiveButton(
+//            "Delete", a
+//        )
+//
+//        builder.setNeutralButton("Cancel", null)
+//        builder.show()
+//    }
 
-        noteView.setOnClickListener {
-            showDeleteDialog(note)
-            return@setOnClickListener
-        }
-        noteContainer.addView(noteView)
-    }
-
-    private fun showDeleteDialog(note: Note) {
-        builder = AlertDialog.Builder(this)
-        builder.setTitle("Delete this note.")
-        builder.setMessage("Are you sure you want delete this note?")
-        val a = object : DialogInterface.OnClickListener {
-            override fun onClick(p0: DialogInterface?, p1: Int) {
-                deleteNoteAndRefresh(note)
-            }
-
-        }
-        builder.setPositiveButton(
-            "Delete", a
-        )
-
-        builder.setNeutralButton("Cancel", null)
-        builder.show()
-    }
-
-    private fun deleteNoteAndRefresh(note: Note) {
-        noteList.remove(note)
+    private fun deleteNoteAndRefresh(id: Int) {
+        noteList.removeAt(id)
         saveNotesToPreferences()
-        recyclerView.adapter = AdapterClass(noteList)
-        recyclerView.adapter
-        refreshNoteViews()
+//        refreshNoteViews()
         return
     }
 

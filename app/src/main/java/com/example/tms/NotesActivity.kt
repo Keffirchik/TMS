@@ -110,12 +110,7 @@ class NotesActivity : AppCompatActivity() {
         builder = AlertDialog.Builder(this)
         builder.setTitle("Delete this note.")
         builder.setMessage("Are you sure you want delete this note?")
-        val a = object : DialogInterface.OnClickListener {
-            override fun onClick(p0: DialogInterface?, p1: Int) {
-                deleteNoteAndRefresh(note)
-            }
-
-        }
+        val a = DialogInterface.OnClickListener { p0, p1 -> deleteNoteAndRefresh(note) }
         builder.setPositiveButton(
             "Delete", a
         )

@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tms.R
 
-class AdapterClass(private val noteList: MutableList<Note>) :
+class AdapterClass(private val noteList: MutableList<Note>, val callback : (id : Int) -> Unit) :
     RecyclerView.Adapter<AdapterClass.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -45,6 +45,7 @@ class AdapterClass(private val noteList: MutableList<Note>) :
 
     private fun deleteNote(index: Int){
         noteList.removeAt(index)
+        callback.invoke(index)
 //        saveNotesToPreferences()
         notifyDataSetChanged()
 //        notifyItemRemoved(index)
