@@ -2,17 +2,11 @@ package com.example.tms
 
 import AdapterClass
 import Note
-import android.annotation.SuppressLint
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +17,6 @@ class RecyclerNotesActivity : AppCompatActivity() {
     private val prefsName: String = "NotePrefs"
     private val keyNoteCount: String = "NoteCount"
 
-    private lateinit var noteContainer: LinearLayout
     private lateinit var noteList: MutableList<Note>
 
     private lateinit var addNewNote: Button
@@ -66,9 +59,6 @@ class RecyclerNotesActivity : AppCompatActivity() {
 
     private fun displayNotes() {
         recyclerView.adapter = AdapterClass(noteList) { id -> deleteNoteAndRefresh(id) }
-//        for (note in noteList) {
-//            createNoteView(note)
-//        }
     }
 
     private fun loadNotesFromPreferences() {
