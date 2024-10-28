@@ -32,21 +32,9 @@ class RecyclerNotesActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
 
-    private lateinit var titleTextView: TextView
-    private lateinit var contentTextView: TextView
-    private lateinit var dateTextView: TextView
-
-    private lateinit var noteView: View
-
-    private lateinit var builder: AlertDialog.Builder
-
     private var noteCount by Delegates.notNull<Int>()
 
     private lateinit var recyclerView: RecyclerView
-
-    //    private lateinit var noteList: MutableList<Note>
-//    private lateinit var noteList: ArrayList<Note>
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,14 +43,8 @@ class RecyclerNotesActivity : AppCompatActivity() {
 
         noteList = ArrayList()
 
-//        noteContainer = findViewById(R.id.notesContainer)
-
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-//        recyclerView.setHasFixedSize(true)
-
-//        noteList = arrayListOf()
-//        getData()
 
         loadNotesFromPreferences()
         displayNotes()
@@ -81,15 +63,6 @@ class RecyclerNotesActivity : AppCompatActivity() {
             startActivity(intentGoMainActivity)
         }
     }
-
-//    private fun getData() {
-//        for (i in titleList.indices) {
-//            val note = Note(titleList[i], contentList[i], dateList[i])
-//            noteList.add(note)
-//        }
-//
-//        recyclerView.adapter = AdapterClass(noteList)
-//    }
 
     private fun displayNotes() {
         recyclerView.adapter = AdapterClass(noteList) { id -> deleteNoteAndRefresh(id) }
@@ -114,52 +87,10 @@ class RecyclerNotesActivity : AppCompatActivity() {
         }
     }
 
-//    @SuppressLint("InflateParams")
-//    private fun createNoteView(note: Note) {
-//        noteView = layoutInflater.inflate(R.layout.note_item, null)
-//        titleTextView = noteView.findViewById(R.id.titleTextView)
-//        contentTextView = noteView.findViewById(R.id.contentTextView)
-//        dateTextView = noteView.findViewById(R.id.dateTextView)
-//
-//        titleTextView.text = note.title
-//        contentTextView.text = note.content
-//        dateTextView.text = note.noteDate.toString()
-//
-//        noteView.setOnClickListener {
-//            showDeleteDialog(note)
-//            return@setOnClickListener
-//        }
-//        noteContainer.addView(noteView)
-//    }
-
-//    private fun showDeleteDialog(note: Note) {
-//        builder = AlertDialog.Builder(this)
-//        builder.setTitle("Delete this note.")
-//        builder.setMessage("Are you sure you want delete this note?")
-//        val a = object : DialogInterface.OnClickListener {
-//            override fun onClick(p0: DialogInterface?, p1: Int) {
-//                deleteNoteAndRefresh(note)
-//            }
-//
-//        }
-//        builder.setPositiveButton(
-//            "Delete", a
-//        )
-//
-//        builder.setNeutralButton("Cancel", null)
-//        builder.show()
-//    }
-
     private fun deleteNoteAndRefresh(id: Int) {
         noteList.removeAt(id)
         saveNotesToPreferences()
-//        refreshNoteViews()
         return
-    }
-
-    private fun refreshNoteViews() {
-        noteContainer.removeAllViews()
-        displayNotes()
     }
 
     private fun saveNotesToPreferences() {
@@ -167,7 +98,7 @@ class RecyclerNotesActivity : AppCompatActivity() {
         editor = sharedPreferences.edit()
 
         editor.putInt(keyNoteCount, noteList.size)
-        for (i in 1..<noteList.size) {
+        for (i in 0..<noteList.size) {
             val note = noteList[i]
             editor.putString("note_title_$i", note.title)
             editor.putString("note_content_$i", note.content)

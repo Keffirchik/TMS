@@ -1,4 +1,3 @@
-import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +14,6 @@ class AdapterClass(private val noteList: MutableList<Note>, val callback : (id :
         val dateText: TextView = this.itemView.findViewById(R.id.dateTextView)
         val delete: TextView = this.itemView.findViewById(R.id.ly_delete_button_ni)
     }
-
-    private val prefsName: String = "NotePrefs"
-    private val keyNoteCount: String = "NoteCount"
-
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var editor: SharedPreferences.Editor
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =
@@ -44,24 +37,10 @@ class AdapterClass(private val noteList: MutableList<Note>, val callback : (id :
     }
 
     private fun deleteNote(index: Int){
-        noteList.removeAt(index)
+//        noteList.removeAt(index)
         callback.invoke(index)
-//        saveNotesToPreferences()
         notifyDataSetChanged()
 //        notifyItemRemoved(index)
     }
-
-//    private fun saveNotesToPreferences() {
-//        sharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
-//        editor = sharedPreferences.edit()
-//
-//        editor.putInt(keyNoteCount, noteList.size)
-//        for (i in 1..<noteList.size) {
-//            val note = noteList[i]
-//            editor.putString("note_title_$i", note.title)
-//            editor.putString("note_content_$i", note.content)
-//        }
-//        editor.apply()
-//    }
 
 }
