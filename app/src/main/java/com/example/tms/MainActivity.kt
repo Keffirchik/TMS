@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         val mainButton = findViewById<Button>(R.id.main_button)
 
-        val intentMainButton = Intent(this.baseContext, NotesActivity::class.java)
+        val intentMainButton = Intent(this.baseContext, MainLoginActivity::class.java)
 
         mainButton.setOnClickListener {
             startActivity(intentMainButton)
@@ -29,6 +27,22 @@ class MainActivity : AppCompatActivity() {
 
         buttonGoToSecondActivity.setOnClickListener {
             startActivity(intentGoToSecondActivity)
+        }
+
+        val noteButton = findViewById<Button>(R.id.acb_go_to_notes_am)
+
+        val intentGoToNotesActivity = Intent(this.baseContext, NotesActivity::class.java)
+
+        noteButton.setOnClickListener {
+            startActivity(intentGoToNotesActivity)
+        }
+
+        val noteButtonSecond = findViewById<Button>(R.id.acb_go_to_second_notes_am)
+
+        val intentGoToNotes2Activity = Intent(this.baseContext, RecyclerNotesActivity::class.java)
+
+        noteButtonSecond.setOnClickListener {
+            startActivity(intentGoToNotes2Activity)
         }
 
     }
