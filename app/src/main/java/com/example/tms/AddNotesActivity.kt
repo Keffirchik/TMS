@@ -31,7 +31,7 @@ class AddNotesActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_add_notes)
 
-        val intentGoToMainActivity = Intent(this.baseContext, NotesActivity::class.java)
+        val intentGoToMainActivity = Intent(this.baseContext, RecyclerNotesActivity::class.java)
 
         saveButton = findViewById(R.id.addNewNote)
         saveButton.setOnClickListener {
