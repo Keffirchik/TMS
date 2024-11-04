@@ -14,9 +14,15 @@ import kotlin.properties.Delegates
 
 class RecyclerNotesActivity : AppCompatActivity() {
 
+//    private val listOfItems = listOf(
+//        Custom.InfoBlock("Infoblock")
+//    )
+
     private val prefsName: String = "NotePrefs"
     private val keyNoteCount: String = "NoteCount"
 
+//    private var listOfItems: MutableList<Custom> = mutableListOf(Custom.InfoBlock("Infoblock"))
+    private lateinit var listOfItems: MutableList<Custom>
     private lateinit var noteList: MutableList<Note>
 
     private lateinit var addNewNote: Button
@@ -35,11 +41,18 @@ class RecyclerNotesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_recycler_notes)
 
         noteList = ArrayList()
+        listOfItems = ArrayList()
+
+        if (listOfItems.isEmpty()) {
+            listOfItems.add(Custom.InfoBlock("Infoblock"))
+        }
+//        listOfItems.add(Custom.InfoBlock("Infoblock"))
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         loadNotesFromPreferences()
+
         displayNotes()
 
         val intentGoToNotesActivity = Intent(this.baseContext, AddNotesActivity::class.java)
@@ -58,7 +71,38 @@ class RecyclerNotesActivity : AppCompatActivity() {
     }
 
     private fun displayNotes() {
-        recyclerView.adapter = AdapterClass(noteList) { id -> deleteNoteAndRefresh(id) }
+        addNoteToListOfItems()
+//        recyclerView.adapter = AdapterClass(noteList) { id,command ->
+        recyclerView.adapter = AdapterClass(listOfItems) { id,command ->
+            when(command){
+                "delete" -> deleteNoteAndRefresh(id)
+                "share" -> shareNote(id)
+            }
+        }
+    }
+
+    private fun addNoteToListOfItems() {
+        for (i in 0..<noteList.size) {
+            val note = noteList[i]
+            listOfItems.add(Custom.Note(
+                note.title,
+                note.content,
+                note.noteDate
+            ))
+        }
+    }
+
+    private fun shareNote(id: Int) {
+        val note = noteList[id]
+        val intentShareNote: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "Title: ${note.title}\nNote: ${note.content}\nDate: ${note.noteDate}")
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(intentShareNote, null)
+        startActivity(shareIntent)
+
     }
 
     private fun loadNotesFromPreferences() {
@@ -95,4 +139,15 @@ class RecyclerNotesActivity : AppCompatActivity() {
         }
         editor.apply()
     }
+}
+
+sealed interface Custom {
+    data class InfoBlock(
+        val info: String
+    ) :Custom
+    data class Note(
+        val title: String?,
+        val content: String?,
+        val date: String?
+    ) : Custom
 }

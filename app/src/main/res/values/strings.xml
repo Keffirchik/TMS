@@ -32,4 +32,6 @@
     <string name="recycle_notes">Recycle Notes:</string>
     <string name="delete_note">Delete note</string>
     <string name="go_to_recycler_notes">Go to recycler notes</string>
+    <string name="share_note">Share note</string>
+    <string name="infoblock">Infoblock</string>
 </resources>
