@@ -46,7 +46,6 @@ class RecyclerNotesActivity : AppCompatActivity() {
         if (listOfItems.isEmpty()) {
             listOfItems.add(Custom.InfoBlock("Infoblock"))
         }
-//        listOfItems.add(Custom.InfoBlock("Infoblock"))
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -141,13 +140,13 @@ class RecyclerNotesActivity : AppCompatActivity() {
     }
 }
 
-sealed interface Custom {
-    data class InfoBlock(
-        val info: String
-    ) :Custom
-    data class Note(
-        val title: String?,
-        val content: String?,
-        val date: String?
-    ) : Custom
-}
+//sealed interface Custom {
+//    data class InfoBlock(
+//        val info: String
+//    ) :Custom
+//    data class Note(
+//        val title: String?,
+//        val content: String?,
+//        val date: String?
+//    ) : Custom
+//}
