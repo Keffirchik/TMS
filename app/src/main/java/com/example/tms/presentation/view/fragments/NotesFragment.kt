@@ -14,6 +14,7 @@ import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tms.R
+import com.example.tms.data.storage.MySharedPreferences
 import kotlin.properties.Delegates
 
 class NotesFragment : Fragment() {
@@ -89,6 +90,8 @@ class NotesFragment : Fragment() {
     }
 
     private fun saveNotesToPreferences() {
+
+        MySharedPreferences(context).saveToPreferences(noteList)
         sharedPreferences = context?.getSharedPreferences(prefsName, MODE_PRIVATE)!!
         editor = sharedPreferences.edit()
 
@@ -137,19 +140,20 @@ class NotesFragment : Fragment() {
     }
 
     private fun loadNotesFromPreferences() {
-        sharedPreferences = context?.getSharedPreferences(prefsName, MODE_PRIVATE)!!
-        noteCount = sharedPreferences.getInt(keyNoteCount, 0)
-
-        for (i in 0..<noteCount) {
-            val title = sharedPreferences.getString("note_title_$i", "")
-            val content = sharedPreferences.getString("note_content_$i", "")
-            val noteDate = sharedPreferences.getString("note_date_$i", "")
-
-            val note = Note(title, content, noteDate)
-
-            noteList.add(note)
-
-        }
+        noteList = MySharedPreferences(context).loadFromPreferences()
+//        sharedPreferences = context?.getSharedPreferences(prefsName, MODE_PRIVATE)!!
+//        noteCount = sharedPreferences.getInt(keyNoteCount, 0)
+//
+//        for (i in 0..<noteCount) {
+//            val title = sharedPreferences.getString("note_title_$i", "")
+//            val content = sharedPreferences.getString("note_content_$i", "")
+//            val noteDate = sharedPreferences.getString("note_date_$i", "")
+//
+//            val note = Note(title, content, noteDate)
+//
+//            noteList.add(note)
+//
+//        }
     }
 
 }

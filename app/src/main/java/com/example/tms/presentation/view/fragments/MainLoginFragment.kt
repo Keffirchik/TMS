@@ -8,7 +8,6 @@ import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.example.tms.R
-import com.example.tms.SecondLoginFragment
 
 class MainLoginFragment : Fragment() {
 

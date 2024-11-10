@@ -7,7 +7,6 @@ import com.example.tms.presentation.view.fragments.Custom
 import com.example.tms.R
 
 class AdapterClass(
-//    private val noteList: MutableList<Note>,
     private val listOfItems: MutableList<Custom>,
     private val callback: (id: Int, command: String) -> Unit
 ) :
@@ -25,18 +24,7 @@ class AdapterClass(
         val share: TextView = this.itemView.findViewById(R.id.ly_share_ni)
     }
 
-//    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        val titleText: TextView = this.itemView.findViewById(R.id.titleTextView)
-//        val contentText: TextView = this.itemView.findViewById(R.id.contentTextView)
-//        val dateText: TextView = this.itemView.findViewById(R.id.dateTextView)
-//        val delete: TextView = this.itemView.findViewById(R.id.ly_delete_button_ni)
-//        val share: TextView = this.itemView.findViewById(R.id.ly_share_ni)
-//    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-//        val itemView =
-//            LayoutInflater.from(parent.context).inflate(R.layout.note_item, parent, false)
-//        return ViewHolder(itemView)
 
         return when (viewType) {
             AdapterType.INFO_TYPE.ordinal -> InfoViewHolder(
@@ -57,16 +45,7 @@ class AdapterClass(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-//        val currentItem = noteList[position]
-//        holder.titleText.text = currentItem.title
-//        holder.contentText.text = currentItem.content
-//        holder.dateText.text = currentItem.noteDate
-//        holder.delete.setOnClickListener {
-//            deleteNote(position)
-//        }
-//        holder.share.setOnClickListener {
-//            shareNote(position)
-//        }
+
         when (val item = listOfItems[position]) {
             is Custom.InfoBlock -> (holder as InfoViewHolder).apply {
                 infoBlock.text = item.info

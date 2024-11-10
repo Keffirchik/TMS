@@ -19,11 +19,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
-//        setContentView(R.layout.activity_main)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(MyViewModel::class.java)
-        _binding = ActivityMainBinding.inflate(LayoutInflater)
+//        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(MyViewModel::class.java)
+//        _binding = ActivityMainBinding.inflate(LayoutInflater)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
