@@ -29,7 +29,9 @@ class MainLoginFragment : Fragment() {
         val loginButton = currentView.findViewById<AppCompatButton>(R.id.ll_login_button_fml)
         loginButton.setOnClickListener {
             if (usernameInput.text.toString().length > 1 && passwordInput.text.toString().length > 1) {
-                secondLoginFramgent.arguments?.putString("loginInput", usernameInput.text.toString())
+                val bundle = Bundle()
+                bundle.putString("loginInput", usernameInput.text.toString())
+                secondLoginFramgent.arguments = bundle
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.mainFragmentView, secondLoginFramgent)
                     .addToBackStack(null)
