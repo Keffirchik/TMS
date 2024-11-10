@@ -1,4 +1,4 @@
-package com.example.tms
+package com.example.tms.presentation.view.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
+import com.example.tms.R
 
 class MainFragment : Fragment() {
 

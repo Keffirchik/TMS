@@ -1,4 +1,4 @@
-package com.example.tms
+package com.example.tms.presentation.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
+import com.example.tms.R
+import com.example.tms.SecondLoginFragment
 
 class MainLoginFragment : Fragment() {
 

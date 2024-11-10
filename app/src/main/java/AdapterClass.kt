@@ -3,7 +3,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tms.Custom
+import com.example.tms.presentation.view.fragments.Custom
 import com.example.tms.R
 
 class AdapterClass(

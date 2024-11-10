@@ -1,4 +1,4 @@
-package com.example.tms
+package com.example.tms.presentation.view.fragments
 
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import com.example.tms.R
 import kotlin.properties.Delegates
 
 class AddNoteFragment : Fragment() {
@@ -19,9 +20,6 @@ class AddNoteFragment : Fragment() {
 
     private lateinit var titleEditText: EditText
     private lateinit var contentEditText: EditText
-
-    private lateinit var saveButton: Button
-    private lateinit var cancelButton: Button
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor

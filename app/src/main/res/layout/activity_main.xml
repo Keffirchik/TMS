@@ -4,11 +4,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".presentation.view.activities.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/mainFragmentView"
-        android:name="com.example.tms.MainFragment"
+        android:name="com.example.tms.presentation.view.fragments.MainFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

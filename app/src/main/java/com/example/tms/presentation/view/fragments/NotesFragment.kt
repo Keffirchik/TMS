@@ -1,4 +1,4 @@
-package com.example.tms
+package com.example.tms.presentation.view.fragments
 
 import AdapterClass
 import Note
@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tms.R
 import kotlin.properties.Delegates
 
 class NotesFragment : Fragment() {

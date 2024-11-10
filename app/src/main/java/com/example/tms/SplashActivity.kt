@@ -7,6 +7,7 @@ import android.os.Looper
 import android.os.Message
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.tms.presentation.view.activities.MainActivity
 
 
 class SplashActivity : AppCompatActivity() {
