@@ -5,9 +5,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tms.presentation.view.fragments.Custom
 import com.example.tms.R
+import com.example.tms.presentation.model.NotesType
 
 class AdapterClass(
-    private val listOfItems: MutableList<Custom>,
+    private val listOfItems: MutableList<NotesType>?,
     private val callback: (id: Int, command: String) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -41,16 +42,16 @@ class AdapterClass(
     }
 
     override fun getItemCount(): Int {
-        return listOfItems.size
+        return listOfItems?.size!!
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        when (val item = listOfItems[position]) {
-            is Custom.InfoBlock -> (holder as InfoViewHolder).apply {
+        when (val item = listOfItems?.get(position)) {
+            is NotesType.InfoBlock -> (holder as InfoViewHolder).apply {
                 infoBlock.text = item.info
             }
-            is Custom.Note -> (holder as NoteViewHolder).apply {
+            is NotesType.Note -> (holder as NoteViewHolder).apply {
                 titleText.text = item.title
                 contentText.text = item.content
                 dateText.text = item.date
@@ -61,12 +62,15 @@ class AdapterClass(
                     shareNote(position)
                 }
             }
+
+            null -> TODO()
         }
     }
 
-    override fun getItemViewType(position: Int): Int = when (listOfItems[position]) {
-        is Custom.InfoBlock -> AdapterType.INFO_TYPE.ordinal
-        is Custom.Note -> AdapterType.NOTE_TYPE.ordinal
+    override fun getItemViewType(position: Int): Int = when (listOfItems?.get(position)) {
+        is NotesType.InfoBlock -> AdapterType.INFO_TYPE.ordinal
+        is NotesType.Note -> AdapterType.NOTE_TYPE.ordinal
+        null -> TODO()
     }
 
     private fun shareNote(position: Int) {
@@ -76,7 +80,7 @@ class AdapterClass(
     private fun deleteNote(position: Int) {
         callback.invoke(position, "delete")
         notifyDataSetChanged()
-//        notifyItemRemoved(index)
+//        notifyItemRemoved(position)
     }
 
     private enum class AdapterType {

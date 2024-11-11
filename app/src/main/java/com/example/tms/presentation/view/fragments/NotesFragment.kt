@@ -81,7 +81,7 @@ class NotesFragment : Fragment() {
     }
 
     private fun deleteNoteAndRefresh(id: Int) {   //fixme
-        noteList.removeAt(id - 1)
+        noteList?.removeAt(id - 1)
         saveNotesToPreferences()
         addNoteToListOfItems()
         return
@@ -89,7 +89,7 @@ class NotesFragment : Fragment() {
 
     private fun saveNotesToPreferences() {
 
-        sharedPreferences?.saveToPreferences(noteList)
+        noteList?.let { sharedPreferences?.saveToPreferences(it) }
 
 //        val mySharedPreferences = context?.getSharedPreferences(prefsName, MODE_PRIVATE)!!
 //        editor = mySharedPreferences.edit()
@@ -108,12 +108,12 @@ class NotesFragment : Fragment() {
     }
 
     private fun shareNote(id: Int) {
-        val note = noteList[id]
+        val note = noteList?.get(id)
         val intentShareNote: Intent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(
                 Intent.EXTRA_TEXT,
-                "Title: ${note.title}\nNote: ${note.content}\nDate: ${note.noteDate}"
+                "Title: ${note?.title}\nNote: ${note?.content}\nDate: ${note?.noteDate}"
             )
             type = "text/plain"
         }
