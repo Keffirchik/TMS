@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import com.example.tms.R
+import com.example.tms.presentation.view.activities.MainActivity
 
 class MainFragment : Fragment() {
 
@@ -20,10 +21,8 @@ class MainFragment : Fragment() {
         val buttonLogin = currentView.findViewById<AppCompatButton>(R.id.fragment_main_button)
 
         buttonLogin.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.mainFragmentView, MainLoginFragment())
-                .addToBackStack(null)
-                .commit()
+            val fragment = MainLoginFragment()
+            (activity as MainActivity).openFragment(fragment)
         }
 
         //button to second screen
@@ -31,20 +30,16 @@ class MainFragment : Fragment() {
             currentView.findViewById<AppCompatButton>(R.id.button_to_second_activity)
 
         buttonGoToSecondActivity.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.mainFragmentView, SecondFragment())
-                .addToBackStack(null)
-                .commit()
+            val fragment = SecondFragment()
+            (activity as MainActivity).openFragment(fragment)
         }
 
         //button to notes
         val noteButton = currentView.findViewById<AppCompatButton>(R.id.acb_go_to_notes_am)
 
         noteButton.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.mainFragmentView, NotesFragment())
-                .addToBackStack(null)
-                .commit()
+            val fragment = NotesFragment()
+            (activity as MainActivity).openFragment(fragment)
         }
 
         return currentView

@@ -2,9 +2,7 @@ package com.example.tms.presentation.view.fragments
 
 import AdapterClass
 import Note
-import android.content.Context.MODE_PRIVATE
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,22 +13,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tms.R
 import com.example.tms.data.storage.MySharedPreferences
-import kotlin.properties.Delegates
+import com.example.tms.presentation.model.NotesType
+import com.example.tms.presentation.view.activities.MainActivity
 
 class NotesFragment : Fragment() {
 
-    private val prefsName: String = "NotePrefs"
-    private val keyNoteCount: String = "NoteCount"
+    private var listOfItems: MutableList<NotesType>? = null
+    private var noteList: MutableList<Note>? = null
 
-    private lateinit var listOfItems: MutableList<Custom>
-    private lateinit var noteList: MutableList<Note>
+    private lateinit var recyclerView: RecyclerView //fixme
 
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var editor: SharedPreferences.Editor
+    private var sharedPreferences: MySharedPreferences? = null
 
-    private var noteCount by Delegates.notNull<Int>()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initSharedPreferences()
+    }
 
-    private lateinit var recyclerView: RecyclerView
+    private fun initSharedPreferences() {
+        sharedPreferences = MySharedPreferences(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,10 +44,10 @@ class NotesFragment : Fragment() {
         noteList = ArrayList()
         listOfItems = ArrayList()
 
-        listOfItems.clear()
-        listOfItems.add(Custom.InfoBlock("Infoblock"))
+        listOfItems.clear()  //fixme
+        listOfItems.add(NotesType.InfoBlock("Infoblock")) //fixme
 
-        recyclerView = currentView.findViewById(R.id.fragmentRecyclerView)
+        recyclerView = currentView.findViewById(R.id.fragmentRecyclerView)  //fixme
         recyclerView.layoutManager = LinearLayoutManager(currentView.context)
 
         displayNotes()
@@ -53,19 +55,15 @@ class NotesFragment : Fragment() {
         //add note button
         val addNote = currentView.findViewById<Button>(R.id.ll_addNote_nt)
         addNote.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.mainFragmentView, AddNoteFragment())
-                .addToBackStack(null)
-                .commit()
+            val fragment = AddNoteFragment()
+            (activity as MainActivity).openFragment(fragment)
         }
 
         //go to main button
         val goToMain = currentView.findViewById<Button>(R.id.ll_goToMain_nf)
         goToMain.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.mainFragmentView, MainFragment())
-                .addToBackStack(null)
-                .commit()
+            val fragment = MainFragment()
+            (activity as MainActivity).openFragment(fragment)
         }
 
         return currentView
@@ -82,7 +80,7 @@ class NotesFragment : Fragment() {
         }
     }
 
-    private fun deleteNoteAndRefresh(id: Int) {
+    private fun deleteNoteAndRefresh(id: Int) {   //fixme
         noteList.removeAt(id - 1)
         saveNotesToPreferences()
         addNoteToListOfItems()
@@ -91,21 +89,22 @@ class NotesFragment : Fragment() {
 
     private fun saveNotesToPreferences() {
 
-        MySharedPreferences(context).saveToPreferences(noteList)
-        sharedPreferences = context?.getSharedPreferences(prefsName, MODE_PRIVATE)!!
-        editor = sharedPreferences.edit()
+        sharedPreferences?.saveToPreferences(noteList)
 
-        editor.putInt(
-            keyNoteCount,
-            noteList.size
-        )
-        for (i in 0..<noteList.size) {
-            val note = noteList[i]
-            editor.putString("note_title_$i", note.title)
-            editor.putString("note_content_$i", note.content)
-            editor.putString("note_date_$i", note.noteDate)
-        }
-        editor.apply()
+//        val mySharedPreferences = context?.getSharedPreferences(prefsName, MODE_PRIVATE)!!
+//        editor = mySharedPreferences.edit()
+//
+//        editor.putInt(
+//            keyNoteCount,
+//            noteList.size
+//        )
+//        for (i in 0..<noteList.size) {
+//            val note = noteList[i]
+//            editor.putString("note_title_$i", note.title)
+//            editor.putString("note_content_$i", note.content)
+//            editor.putString("note_date_$i", note.noteDate)
+//        }
+//        editor.apply()
     }
 
     private fun shareNote(id: Int) {
@@ -125,6 +124,7 @@ class NotesFragment : Fragment() {
     }
 
     private fun addNoteToListOfItems() {
+
         listOfItems.clear()
         listOfItems.add(Custom.InfoBlock("Infoblock"))
         for (i in 0..<noteList.size) {
@@ -141,24 +141,11 @@ class NotesFragment : Fragment() {
 
     private fun loadNotesFromPreferences() {
         noteList = MySharedPreferences(context).loadFromPreferences()
-//        sharedPreferences = context?.getSharedPreferences(prefsName, MODE_PRIVATE)!!
-//        noteCount = sharedPreferences.getInt(keyNoteCount, 0)
-//
-//        for (i in 0..<noteCount) {
-//            val title = sharedPreferences.getString("note_title_$i", "")
-//            val content = sharedPreferences.getString("note_content_$i", "")
-//            val noteDate = sharedPreferences.getString("note_date_$i", "")
-//
-//            val note = Note(title, content, noteDate)
-//
-//            noteList.add(note)
-//
-//        }
     }
 
 }
 
-sealed interface Custom {
+sealed interface Custom { //fixme
     data class InfoBlock(
         val info: String
     ) : Custom

@@ -8,6 +8,7 @@ import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.example.tms.R
+import com.example.tms.presentation.view.activities.MainActivity
 
 class MainLoginFragment : Fragment() {
 
@@ -20,21 +21,19 @@ class MainLoginFragment : Fragment() {
     ): View? {
 
         val currentView = inflater.inflate(R.layout.fragment_main_login, container, false)
+
         usernameInput = currentView.findViewById(R.id.ll_username_input_fml)
         passwordInput = currentView.findViewById(R.id.ll_password_input_fml)
 
-        val secondLoginFramgent = SecondLoginFragment()
 
         val loginButton = currentView.findViewById<AppCompatButton>(R.id.ll_login_button_fml)
         loginButton.setOnClickListener {
             if (usernameInput.text.toString().length > 1 && passwordInput.text.toString().length > 1) {
                 val bundle = Bundle()
+                val fragment = SecondLoginFragment()
                 bundle.putString("loginInput", usernameInput.text.toString())
-                secondLoginFramgent.arguments = bundle
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.mainFragmentView, secondLoginFramgent)
-                    .addToBackStack(null)
-                    .commit()
+                fragment.arguments = bundle
+                (activity as MainActivity).openFragment(fragment)
             }
         }
 

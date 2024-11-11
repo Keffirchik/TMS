@@ -37,6 +37,12 @@ class AddNoteFragment : Fragment() {
         val saveButton = currentView.findViewById<Button>(R.id.ll_add_new_note_fan)
         saveButton.setOnClickListener {
             saveNote(currentView)
+            val noteFragment = NotesFragment()
+            val bundle = Bundle()
+            bundle.putString("title", titleEditText.text.toString())
+            bundle.putString("content", contentEditText.text.toString())
+            bundle.putString("date", Calendar.getInstance().time.toString())
+            noteFragment.arguments = bundle
             parentFragmentManager.beginTransaction()
                 .replace(R.id.mainFragmentView, NotesFragment())
                 .addToBackStack(null)
