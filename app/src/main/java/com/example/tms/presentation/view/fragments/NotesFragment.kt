@@ -1,7 +1,7 @@
 package com.example.tms.presentation.view.fragments
 
 import AdapterClass
-import Note
+import com.example.tms.domain.models.Note
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -21,7 +21,7 @@ class NotesFragment : Fragment() {
     private var listOfItems: MutableList<NotesType>? = null
     private var noteList: MutableList<Note>? = null
 
-    private lateinit var recyclerView: RecyclerView //fixme
+    private var recyclerView: RecyclerView? = null
 
     private var sharedPreferences: MySharedPreferences? = null
 
@@ -30,9 +30,9 @@ class NotesFragment : Fragment() {
         initSharedPreferences()
     }
 
-    private fun initSharedPreferences() {
-        sharedPreferences = MySharedPreferences(context)
-    }
+//    private fun initRececlerView() {
+//        recyclerView = currentView.findViewById(R.id.fragmentRecyclerView)
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,15 +40,16 @@ class NotesFragment : Fragment() {
     ): View? {
 
         val currentView = inflater.inflate(R.layout.fragment_notes, container, false)
+        initRececlerView(currentView)
 
         noteList = ArrayList()
         listOfItems = ArrayList()
 
-        listOfItems.clear()  //fixme
-        listOfItems.add(NotesType.InfoBlock("Infoblock")) //fixme
+        (listOfItems as ArrayList<NotesType>).clear()  //fixme
+        (listOfItems as ArrayList<NotesType>).add(NotesType.InfoBlock("Infoblock")) //fixme
 
-        recyclerView = currentView.findViewById(R.id.fragmentRecyclerView)  //fixme
-        recyclerView.layoutManager = LinearLayoutManager(currentView.context)
+        //fixme
+//        recyclerView.layoutManager = LinearLayoutManager(currentView.context)
 
         displayNotes()
 
@@ -69,10 +70,19 @@ class NotesFragment : Fragment() {
         return currentView
     }
 
+    private fun initSharedPreferences() {
+        sharedPreferences = MySharedPreferences(context)
+    }
+
+    private fun initRececlerView(currentView: View?) {
+        recyclerView = currentView?.findViewById(R.id.fragmentRecyclerView)
+        recyclerView?.layoutManager = LinearLayoutManager(currentView?.context)
+    }
+
     private fun displayNotes() {
         loadNotesFromPreferences()
         addNoteToListOfItems()
-        recyclerView.adapter = AdapterClass(listOfItems) { id, command ->
+        recyclerView?.adapter = AdapterClass(listOfItems) { id, command ->
             when (command) {
                 "delete" -> deleteNoteAndRefresh(id)
                 "share" -> shareNote(id)
@@ -113,7 +123,7 @@ class NotesFragment : Fragment() {
             action = Intent.ACTION_SEND
             putExtra(
                 Intent.EXTRA_TEXT,
-                "Title: ${note?.title}\nNote: ${note?.content}\nDate: ${note?.noteDate}"
+                "Title: ${note?.title}\ncom.example.tms.domain.models.Note: ${note?.content}\nDate: ${note?.noteDate}"
             )
             type = "text/plain"
         }
@@ -125,12 +135,12 @@ class NotesFragment : Fragment() {
 
     private fun addNoteToListOfItems() {
 
-        listOfItems.clear()
-        listOfItems.add(Custom.InfoBlock("Infoblock"))
-        for (i in 0..<noteList.size) {
-            val note = noteList[i]
-            listOfItems.add(
-                Custom.Note(
+        listOfItems?.clear()
+        listOfItems?.add(NotesType.InfoBlock("Infoblock"))
+        for (i in 0..<noteList?.size!!) {
+            val note = noteList!![i]
+            listOfItems?.add(
+                NotesType.Note(
                     note.title,
                     note.content,
                     note.noteDate
@@ -145,14 +155,14 @@ class NotesFragment : Fragment() {
 
 }
 
-sealed interface Custom { //fixme
-    data class InfoBlock(
-        val info: String
-    ) : Custom
-
-    data class Note(
-        val title: String?,
-        val content: String?,
-        val date: String?
-    ) : Custom
-}
+//sealed interface Custom { //fixme
+//    data class InfoBlock(
+//        val info: String
+//    ) : Custom
+//
+//    data class Note(
+//        val title: String?,
+//        val content: String?,
+//        val date: String?
+//    ) : Custom
+//}

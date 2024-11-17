@@ -1,6 +1,6 @@
 package com.example.tms.data.storage
 
-import Note
+import com.example.tms.domain.models.Note
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
