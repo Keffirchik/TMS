@@ -11,7 +11,6 @@ import android.widget.EditText
 import com.example.tms.R
 import com.example.tms.data.storage.MySharedPreferences
 import com.example.tms.presentation.view.activities.MainActivity
-import kotlin.properties.Delegates
 
 class AddNoteFragment : Fragment() {
 
@@ -20,8 +19,6 @@ class AddNoteFragment : Fragment() {
 
     private lateinit var titleEditText: EditText
     private lateinit var contentEditText: EditText
-
-    private var noteCount by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

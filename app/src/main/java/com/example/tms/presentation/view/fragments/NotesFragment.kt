@@ -63,16 +63,6 @@ class NotesFragment : Fragment() {
         return currentView
     }
 
-    private fun addNewNote() {
-        val title = arguments?.getString("title")
-        val content = arguments?.getString("content")
-        val date = arguments?.getString("date")
-        val note: Note = Note(title, content, date)
-        noteList?.add(note)
-        saveNotesToPreferences()
-        addNoteToListOfItems()
-    }
-
     private fun initSharedPreferences() {
         sharedPreferences = MySharedPreferences(context)
     }
