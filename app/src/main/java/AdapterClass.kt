@@ -78,8 +78,7 @@ class AdapterClass(
 
     private fun deleteNote(position: Int) {
         callback.invoke(position, "delete")
-        notifyDataSetChanged()
-//        notifyItemRemoved(position)
+        notifyItemRemoved(position)
     }
 
     private enum class AdapterType {
