@@ -5,9 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.lifecycleScope
 import com.example.tms.R
 import com.example.tms.presentation.view.activities.MainActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
 
@@ -37,12 +41,33 @@ class MainFragment : Fragment() {
         //button to notes
         val noteButton = currentView.findViewById<AppCompatButton>(R.id.acb_go_to_notes_am)
 
+        val progressBar = currentView.findViewById<ProgressBar>(R.id.progressBar)
+
         noteButton.setOnClickListener {
             val fragment = NotesFragment()
-            (activity as MainActivity).openFragment(fragment)
+//            progressBar.visibility = View.VISIBLE
+            showWaitingIconLaunch(progressBar, fragment)
+//            progressBar.visibility = View.GONE
+
+//            (activity as MainActivity).openFragment(fragment)
         }
 
         return currentView
     }
+
+    private fun showWaitingIconLaunch(progressBar: ProgressBar, fragment: Fragment) {
+        lifecycleScope.launch {
+            showWaitingIcon(progressBar, fragment)
+
+        }
+    }
+
+    private suspend fun showWaitingIcon(progressBar: ProgressBar, fragment: Fragment) {
+        progressBar.visibility = View.VISIBLE
+        delay(3_000)
+        progressBar.visibility = View.GONE
+        (activity as MainActivity).openFragment(fragment)
+    }
+
 
 }
