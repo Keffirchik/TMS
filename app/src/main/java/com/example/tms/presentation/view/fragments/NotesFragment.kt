@@ -30,26 +30,19 @@ class NotesFragment : Fragment() {
         initSharedPreferences()
     }
 
-//    private fun initRececlerView() {
-//        recyclerView = currentView.findViewById(R.id.fragmentRecyclerView)
-//    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         val currentView = inflater.inflate(R.layout.fragment_notes, container, false)
-        initRececlerView(currentView)
+        initRecyclerView(currentView)
 
         noteList = ArrayList()
         listOfItems = ArrayList()
 
         (listOfItems as ArrayList<NotesType>).clear()  //fixme
         (listOfItems as ArrayList<NotesType>).add(NotesType.InfoBlock("Infoblock")) //fixme
-
-        //fixme
-//        recyclerView.layoutManager = LinearLayoutManager(currentView.context)
 
         displayNotes()
 
@@ -70,11 +63,21 @@ class NotesFragment : Fragment() {
         return currentView
     }
 
+    private fun addNewNote() {
+        val title = arguments?.getString("title")
+        val content = arguments?.getString("content")
+        val date = arguments?.getString("date")
+        val note: Note = Note(title, content, date)
+        noteList?.add(note)
+        saveNotesToPreferences()
+        addNoteToListOfItems()
+    }
+
     private fun initSharedPreferences() {
         sharedPreferences = MySharedPreferences(context)
     }
 
-    private fun initRececlerView(currentView: View?) {
+    private fun initRecyclerView(currentView: View?) {
         recyclerView = currentView?.findViewById(R.id.fragmentRecyclerView)
         recyclerView?.layoutManager = LinearLayoutManager(currentView?.context)
     }
@@ -101,20 +104,6 @@ class NotesFragment : Fragment() {
 
         noteList?.let { sharedPreferences?.saveToPreferences(it) }
 
-//        val mySharedPreferences = context?.getSharedPreferences(prefsName, MODE_PRIVATE)!!
-//        editor = mySharedPreferences.edit()
-//
-//        editor.putInt(
-//            keyNoteCount,
-//            noteList.size
-//        )
-//        for (i in 0..<noteList.size) {
-//            val note = noteList[i]
-//            editor.putString("note_title_$i", note.title)
-//            editor.putString("note_content_$i", note.content)
-//            editor.putString("note_date_$i", note.noteDate)
-//        }
-//        editor.apply()
     }
 
     private fun shareNote(id: Int) {
@@ -154,15 +143,3 @@ class NotesFragment : Fragment() {
     }
 
 }
-
-//sealed interface Custom { //fixme
-//    data class InfoBlock(
-//        val info: String
-//    ) : Custom
-//
-//    data class Note(
-//        val title: String?,
-//        val content: String?,
-//        val date: String?
-//    ) : Custom
-//}

@@ -33,13 +33,6 @@ class MySharedPreferences(context: Context?) {
         }
         editor.apply()
 
-//        editor.putString("note_title_$noteCount", title)
-//        editor.putString("note_content_$noteCount", content)
-//        editor.putString("note_date_$noteCount", Calendar.getInstance().time.toString())
-//
-//        editor.putInt(keyNoteCount, noteCount?.plus(1)!! )
-//
-//        editor.apply()
     }
 
     fun loadFromPreferences(): MutableList<Note> {
@@ -58,6 +51,22 @@ class MySharedPreferences(context: Context?) {
         }
 
         return noteList
+    }
+
+    fun addElementsToPreferences(title: String, content: String, noteDate: String) {
+
+        editor.putString("note_title_$noteCount", title)
+        editor.putString("note_content_$noteCount", content)
+        editor.putString("note_date_$noteCount", noteDate)
+
+        val newNoteCount = noteCount?.plus(1)
+
+        editor.putInt(
+            keyNoteCount,
+            newNoteCount!!
+        )
+
+        editor.apply()
     }
 
 }

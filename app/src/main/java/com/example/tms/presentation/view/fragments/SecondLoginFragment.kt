@@ -17,7 +17,6 @@ class SecondLoginFragment : Fragment() {
 
         val currentView = inflater.inflate(R.layout.fragment_second_login, container, false)
 
-
         val textView = currentView.findViewById<TextView>(R.id.cl_second_text_view_slf)
         val login = arguments?.getString("loginInput")
         textView.text = "Hello $login we are happy to see you!"
