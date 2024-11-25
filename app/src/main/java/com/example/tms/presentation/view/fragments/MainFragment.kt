@@ -46,19 +46,14 @@ class MainFragment : Fragment() {
         noteButton.setOnClickListener {
             val fragment = NotesFragment()
 
-            showWaitingIconLaunch(progressBar, fragment)
+            lifecycleScope.launch {
+                showWaitingIcon(progressBar)
+                (activity as MainActivity).openFragment(fragment)
+            }
 
         }
 
         return currentView
-    }
-
-    private fun showWaitingIconLaunch(progressBar: ProgressBar, fragment: Fragment) {
-        lifecycleScope.launch {
-            showWaitingIcon(progressBar)
-            (activity as MainActivity).openFragment(fragment)
-        }
-
     }
 
     private suspend fun showWaitingIcon(progressBar: ProgressBar) {

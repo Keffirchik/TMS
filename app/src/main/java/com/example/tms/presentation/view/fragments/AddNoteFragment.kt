@@ -45,8 +45,11 @@ class AddNoteFragment : Fragment() {
 
             val fragment = NotesFragment()
 
-            showWaitingIconLaunch(progressBar, fragment)
-//            (activity as MainActivity).openFragment(fragment)
+            lifecycleScope.launch {
+                showWaitingIcon(progressBar, fragment)
+                (activity as MainActivity).openFragment(fragment)
+            }
+
         }
 
         // cancel button
@@ -59,13 +62,6 @@ class AddNoteFragment : Fragment() {
         }
 
         return currentView
-    }
-
-    private fun showWaitingIconLaunch(progressBar: ProgressBar?, fragment: NotesFragment) {
-        lifecycleScope.launch {
-            showWaitingIcon(progressBar, fragment)
-
-        }
     }
 
     private suspend fun showWaitingIcon(progressBar: ProgressBar?, fragment: NotesFragment) {
@@ -92,6 +88,5 @@ class AddNoteFragment : Fragment() {
 
         }
     }
-
 
 }
