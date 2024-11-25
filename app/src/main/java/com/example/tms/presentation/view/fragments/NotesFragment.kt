@@ -1,6 +1,6 @@
 package com.example.tms.presentation.view.fragments
 
-import AdapterClass
+import com.example.tms.presentation.utils.AdapterClass
 import com.example.tms.domain.models.Note
 import android.content.Intent
 import android.os.Bundle

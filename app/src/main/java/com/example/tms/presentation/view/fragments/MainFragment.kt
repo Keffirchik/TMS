@@ -45,11 +45,9 @@ class MainFragment : Fragment() {
 
         noteButton.setOnClickListener {
             val fragment = NotesFragment()
-//            progressBar.visibility = View.VISIBLE
-            showWaitingIconLaunch(progressBar, fragment)
-//            progressBar.visibility = View.GONE
 
-//            (activity as MainActivity).openFragment(fragment)
+            showWaitingIconLaunch(progressBar, fragment)
+
         }
 
         return currentView
@@ -57,16 +55,16 @@ class MainFragment : Fragment() {
 
     private fun showWaitingIconLaunch(progressBar: ProgressBar, fragment: Fragment) {
         lifecycleScope.launch {
-            showWaitingIcon(progressBar, fragment)
-
+            showWaitingIcon(progressBar)
+            (activity as MainActivity).openFragment(fragment)
         }
+
     }
 
-    private suspend fun showWaitingIcon(progressBar: ProgressBar, fragment: Fragment) {
+    private suspend fun showWaitingIcon(progressBar: ProgressBar) {
         progressBar.visibility = View.VISIBLE
         delay(3_000)
         progressBar.visibility = View.GONE
-        (activity as MainActivity).openFragment(fragment)
     }
 
 
