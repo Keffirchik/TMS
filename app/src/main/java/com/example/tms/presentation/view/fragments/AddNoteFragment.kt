@@ -14,10 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.tms.R
 import com.example.tms.data.storage.MySharedPreferences
 import com.example.tms.presentation.view.AddNoteFragmentAction
-import com.example.tms.presentation.view.MainFragmentAction
 import com.example.tms.presentation.view.activities.MainActivity
 import com.example.tms.presentation.view_model.AddFragmentModel
-import com.example.tms.presentation.view_model.MainFragmentModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -64,11 +62,8 @@ class AddNoteFragment : Fragment() {
 
             saveNoteToPreferences(currentView)
 
-//            val fragment = NotesFragment()
-//            (activity as MainActivity).openFragment(fragment)
             lifecycleScope.launch {
-                showWaitingIcon(progressBar, fragment)
-                viewModel?.toNextScreen(AddNoteFragmentAction.OpenNoteFragmentAction)
+                showWaitingIcon(progressBar)
             }
 
         }
@@ -77,21 +72,18 @@ class AddNoteFragment : Fragment() {
         // cancel button
         val cancelButton = currentView.findViewById<Button>(R.id.ll_cancel_buttonLfan)
         cancelButton.setOnClickListener {
-//            parentFragmentManager.beginTransaction()
-//                .replace(R.id.mainFragmentView, NotesFragment())
-//                .addToBackStack(null)
-//                .commit()
+
             viewModel?.toNextScreen(AddNoteFragmentAction.OpenNoteFragmentAction)
         }
 
         return currentView
     }
 
-    private suspend fun showWaitingIcon(progressBar: ProgressBar?, fragment: NotesFragment) {
+    private suspend fun showWaitingIcon(progressBar: ProgressBar?) {
         progressBar?.visibility = View.VISIBLE
-        delay(3_000)
+        delay(1_000)
         progressBar?.visibility = View.GONE
-        (activity as MainActivity).openFragment(fragment)
+        viewModel?.toNextScreen(AddNoteFragmentAction.OpenNoteFragmentAction)
     }
 
     private fun initSharedPreferences() {

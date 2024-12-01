@@ -84,7 +84,7 @@ class MainFragment : Fragment() {
 
     private suspend fun showWaitingIcon(progressBar: ProgressBar) {
         progressBar.visibility = View.VISIBLE
-        delay(3_000)
+        delay(1_000)
         progressBar.visibility = View.GONE
     }
 
