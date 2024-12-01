@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".presentation.view.fragments.NotesFragment">
+
+    <TextView
+        android:id="@+id/notesTextView"
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/notes"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:id="@+id/notesScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragmentRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/ll_addNote_nt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="106dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="55dp"
+        android:text="@string/add_new_note" />
+
+    <Button
+        android:id="@+id/ll_goToMain_nf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="106dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="55dp"
+        android:text="@string/go_to_main_screen_button" />
+
+</LinearLayout>
