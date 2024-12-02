@@ -15,10 +15,8 @@ import com.example.tms.data.storage.MySharedPreferences
 import com.example.tms.data.storage.RoomDB
 import com.example.tms.domain.models.Note
 import com.example.tms.presentation.view.AddNoteFragmentAction
-import com.example.tms.presentation.view.MainFragmentAction
 import com.example.tms.presentation.view.activities.MainActivity
 import com.example.tms.presentation.view_model.AddFragmentModel
-import com.example.tms.presentation.view_model.MainFragmentModel
 
 class AddNoteFragment : Fragment() {
 
