@@ -3,19 +3,20 @@ package com.example.tms.data.api
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface DisneyAPI {
 
     @GET("/character/{objectId}")
-    suspend fun getOneCharacter(@Path(value = "objectId") objectId: Int): DisneyObjects
+    suspend fun getOneCharacter(@Path(value = "objectId") objectId: Int): Response<DisneyObjects>
 
     @GET("/character")
-    suspend fun getAllCharacters(): DisneyObjects
+    suspend fun getAllCharacters(): Response<DisneyObjects>
 
     @GET("/character?{queryParams}")
-    suspend fun filterCharacter(@Path(value = "queryParams") queryParams: String): DisneyObjects
+    suspend fun filterCharacter(@Path(value = "queryParams") queryParams: String): Response<DisneyObjects>
 
     @Parcelize
     data class DisneyObjects(
