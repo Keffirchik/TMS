@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.example.tms.R
 import com.example.tms.data.storage.MySharedPreferences
@@ -17,6 +18,8 @@ import com.example.tms.domain.models.Note
 import com.example.tms.presentation.view.AddNoteFragmentAction
 import com.example.tms.presentation.view.activities.MainActivity
 import com.example.tms.presentation.view_model.AddFragmentModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AddNoteFragment : Fragment() {
 
@@ -93,11 +96,13 @@ class AddNoteFragment : Fragment() {
 
         val dao = db?.noteDao()
 
-        val note = Note(title, content,noteDate)
+        val note = Note(title, content, noteDate)
 
         if (title.isNotEmpty() && content.isNotEmpty()) {
 //            sharedPreferences?.addElementsToPreferences(title, content, noteDate)
-            dao?.putNote(note)
+            lifecycleScope.launch(Dispatchers.IO) {
+                dao?.putNote(note)
+            }
 
         }
     }

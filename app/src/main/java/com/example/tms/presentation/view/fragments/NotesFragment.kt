@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -17,6 +18,8 @@ import com.example.tms.data.storage.MySharedPreferences
 import com.example.tms.data.storage.RoomDB
 import com.example.tms.presentation.model.NotesType
 import com.example.tms.presentation.view.activities.MainActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class NotesFragment : Fragment() {
 
@@ -27,7 +30,7 @@ class NotesFragment : Fragment() {
 
     private var sharedPreferences: MySharedPreferences? = null
 
-//    val db = Room.databaseBuilder(context, RoomDB::class.java, "MyDataBase").build()
+    //    val db = Room.databaseBuilder(context, RoomDB::class.java, "MyDataBase").build()
     val db = context?.let { Room.databaseBuilder(it, RoomDB::class.java, "MyDataBase").build() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,9 +103,12 @@ class NotesFragment : Fragment() {
 //        noteList?.let { sharedPreferences?.saveToPreferences(it) }
 
         val dao = db?.noteDao()
-        for (i in 0..<noteList?.size!!) {
-            val note = noteList!![i]
-            dao?.putNote(note)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            for (i in 0..<noteList?.size!!) {
+                val note = noteList!![i]
+                dao?.putNote(note)
+            }
         }
 
 
@@ -144,7 +150,9 @@ class NotesFragment : Fragment() {
 //        noteList = MySharedPreferences(context).loadFromPreferences()
         val dao = db?.noteDao()
         if (dao != null) {
-            noteList = dao.getNote()
+            lifecycleScope.launch(Dispatchers.IO) {
+                noteList = dao.getNote()
+            }
         }
     }
 
