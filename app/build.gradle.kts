@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.tms"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.tms"
