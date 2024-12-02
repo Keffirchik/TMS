@@ -9,8 +9,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
 import com.example.tms.R
 import com.example.tms.data.storage.MySharedPreferences
+import com.example.tms.data.storage.RoomDB
+import com.example.tms.domain.models.Note
 import com.example.tms.presentation.view.AddNoteFragmentAction
 import com.example.tms.presentation.view.MainFragmentAction
 import com.example.tms.presentation.view.activities.MainActivity
@@ -25,6 +28,8 @@ class AddNoteFragment : Fragment() {
 
     private lateinit var titleEditText: EditText
     private lateinit var contentEditText: EditText
+
+    val db = context?.let { Room.databaseBuilder(it, RoomDB::class.java, "MyDataBase").build() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,8 +93,13 @@ class AddNoteFragment : Fragment() {
         val content = contentEditText.text.toString()
         val noteDate = Calendar.getInstance().time.toString()
 
+        val dao = db?.noteDao()
+
+        val note = Note(title, content,noteDate)
+
         if (title.isNotEmpty() && content.isNotEmpty()) {
-            sharedPreferences?.addElementsToPreferences(title, content, noteDate)
+//            sharedPreferences?.addElementsToPreferences(title, content, noteDate)
+            dao?.putNote(note)
 
         }
     }

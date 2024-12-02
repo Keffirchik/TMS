@@ -11,8 +11,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.tms.R
 import com.example.tms.data.storage.MySharedPreferences
+import com.example.tms.data.storage.RoomDB
 import com.example.tms.presentation.model.NotesType
 import com.example.tms.presentation.view.activities.MainActivity
 
@@ -24,6 +26,9 @@ class NotesFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
 
     private var sharedPreferences: MySharedPreferences? = null
+
+//    val db = Room.databaseBuilder(context, RoomDB::class.java, "MyDataBase").build()
+    val db = context?.let { Room.databaseBuilder(it, RoomDB::class.java, "MyDataBase").build() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +97,14 @@ class NotesFragment : Fragment() {
 
     private fun saveNotesToPreferences() {
 
-        noteList?.let { sharedPreferences?.saveToPreferences(it) }
+//        noteList?.let { sharedPreferences?.saveToPreferences(it) }
+
+        val dao = db?.noteDao()
+        for (i in 0..<noteList?.size!!) {
+            val note = noteList!![i]
+            dao?.putNote(note)
+        }
+
 
     }
 
@@ -129,7 +141,11 @@ class NotesFragment : Fragment() {
     }
 
     private fun loadNotesFromPreferences() {
-        noteList = MySharedPreferences(context).loadFromPreferences()
+//        noteList = MySharedPreferences(context).loadFromPreferences()
+        val dao = db?.noteDao()
+        if (dao != null) {
+            noteList = dao.getNote()
+        }
     }
 
 }
