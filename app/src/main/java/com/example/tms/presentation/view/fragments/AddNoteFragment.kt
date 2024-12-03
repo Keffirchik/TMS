@@ -30,6 +30,8 @@ class AddNoteFragment : Fragment() {
     private lateinit var titleEditText: EditText
     private lateinit var contentEditText: EditText
 
+    db:
+    Ro
     val db = context?.let { Room.databaseBuilder(it, RoomDB::class.java, "MyDataBase").build() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,7 +98,7 @@ class AddNoteFragment : Fragment() {
 
         val dao = db?.noteDao()
 
-        val note = Note(title, content, noteDate)
+        val note = Note(1, title, content, noteDate)
 
         if (title.isNotEmpty() && content.isNotEmpty()) {
 //            sharedPreferences?.addElementsToPreferences(title, content, noteDate)

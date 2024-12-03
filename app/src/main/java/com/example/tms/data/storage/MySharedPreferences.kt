@@ -44,7 +44,7 @@ class MySharedPreferences(context: Context?) {
             val content = sharedPreferences?.getString("note_content_$i", "")
             val noteDate = sharedPreferences?.getString("note_date_$i", "")
 
-            val note = Note(title, content, noteDate)
+            val note = Note(1, title, content, noteDate)
 
             noteList.add(note)
 

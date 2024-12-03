@@ -8,7 +8,7 @@ import androidx.room.Query
 @Dao
 interface NoteDao {
 
-    @Insert(entity = Note::class, onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun putNote(note:Note)
 
     @Query("SELECT * FROM note")
