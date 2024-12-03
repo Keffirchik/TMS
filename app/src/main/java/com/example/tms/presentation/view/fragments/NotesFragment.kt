@@ -1,6 +1,7 @@
 package com.example.tms.presentation.view.fragments
 
 import AdapterClass
+import android.app.Application
 import com.example.tms.domain.models.Note
 import android.content.Intent
 import android.os.Bundle
@@ -12,10 +13,8 @@ import android.widget.Button
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.example.tms.R
 import com.example.tms.data.storage.MySharedPreferences
-import com.example.tms.data.storage.RoomDB
 import com.example.tms.data.storage.RoomObject
 import com.example.tms.presentation.model.NotesType
 import com.example.tms.presentation.view.activities.MainActivity
@@ -34,6 +33,7 @@ class NotesFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initSharedPreferences()
+        RoomObject.initDB(Application())
     }
 
     override fun onCreateView(

@@ -3,7 +3,6 @@ package com.example.tms.data.storage
 import android.app.Application
 import androidx.room.Room
 import com.example.tms.domain.models.Note
-import com.example.tms.domain.models.NoteDao
 
 object RoomObject {
 

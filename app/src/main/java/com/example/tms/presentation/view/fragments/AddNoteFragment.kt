@@ -1,5 +1,6 @@
 package com.example.tms.presentation.view.fragments
 
+import android.app.Application
 import android.icu.util.Calendar
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,10 +11,9 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
 import com.example.tms.R
 import com.example.tms.data.storage.MySharedPreferences
-import com.example.tms.data.storage.RoomDB
+import com.example.tms.data.storage.RoomObject
 import com.example.tms.domain.models.Note
 import com.example.tms.presentation.view.AddNoteFragmentAction
 import com.example.tms.presentation.view.activities.MainActivity
@@ -30,16 +30,13 @@ class AddNoteFragment : Fragment() {
     private lateinit var titleEditText: EditText
     private lateinit var contentEditText: EditText
 
-    db:
-    Ro
-    val db = context?.let { Room.databaseBuilder(it, RoomDB::class.java, "MyDataBase").build() }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel =
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
                 .create(AddFragmentModel::class.java)
         initSharedPreferences()
+        RoomObject.initDB(Application())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,18 +63,13 @@ class AddNoteFragment : Fragment() {
         saveButton.setOnClickListener {
             saveNoteToPreferences(currentView)
 
-//            val fragment = NotesFragment()
-//            (activity as MainActivity).openFragment(fragment)
             viewModel?.toNextScreen(AddNoteFragmentAction.OpenNoteFragmentAction)
         }
 
         // cancel button
         val cancelButton = currentView.findViewById<Button>(R.id.ll_cancel_buttonLfan)
         cancelButton.setOnClickListener {
-//            parentFragmentManager.beginTransaction()
-//                .replace(R.id.mainFragmentView, NotesFragment())
-//                .addToBackStack(null)
-//                .commit()
+
             viewModel?.toNextScreen(AddNoteFragmentAction.OpenNoteFragmentAction)
         }
 
@@ -96,14 +88,12 @@ class AddNoteFragment : Fragment() {
         val content = contentEditText.text.toString()
         val noteDate = Calendar.getInstance().time.toString()
 
-        val dao = db?.noteDao()
-
         val note = Note(1, title, content, noteDate)
 
         if (title.isNotEmpty() && content.isNotEmpty()) {
 //            sharedPreferences?.addElementsToPreferences(title, content, noteDate)
             lifecycleScope.launch(Dispatchers.IO) {
-                dao?.putNote(note)
+               RoomObject.putInDB(note)
             }
 
         }
