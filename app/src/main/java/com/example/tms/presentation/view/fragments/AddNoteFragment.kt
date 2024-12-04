@@ -22,8 +22,6 @@ import kotlinx.coroutines.launch
 
 class AddNoteFragment : Fragment() {
 
-    private var sharedPreferences: MySharedPreferences? = null
-
     private var viewModel: AddFragmentModel? = null
 
     private lateinit var titleEditText: EditText
