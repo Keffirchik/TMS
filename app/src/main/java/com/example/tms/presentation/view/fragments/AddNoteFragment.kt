@@ -58,7 +58,7 @@ class AddNoteFragment : Fragment() {
         // save button
         val saveButton = currentView.findViewById<Button>(R.id.ll_add_new_note_fan)
         saveButton.setOnClickListener {
-            saveNoteToPreferences(currentView)
+            saveNoteToDB(currentView)
 
             viewModel?.toNextScreen(AddNoteFragmentAction.OpenNoteFragmentAction)
         }
@@ -73,7 +73,7 @@ class AddNoteFragment : Fragment() {
         return currentView
     }
 
-    private fun saveNoteToPreferences(currentView: View?) {
+    private fun saveNoteToDB(currentView: View?) {
         titleEditText = currentView?.findViewById(R.id.titleEditText)!!
         contentEditText = currentView.findViewById(R.id.contentEditText)!!
 

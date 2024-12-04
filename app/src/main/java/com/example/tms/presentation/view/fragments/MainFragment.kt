@@ -60,8 +60,6 @@ class MainFragment : Fragment() {
         val buttonLogin = currentView.findViewById<AppCompatButton>(R.id.fragment_main_button)
 
         buttonLogin.setOnClickListener {
-//            val fragment = MainLoginFragment()
-//            (activity as MainActivity).openFragment(fragment)
             viewModel?.toNextScreen(MainFragmentAction.OpenLoginFragment)
         }
 
@@ -70,8 +68,6 @@ class MainFragment : Fragment() {
             currentView.findViewById<AppCompatButton>(R.id.button_to_second_activity)
 
         buttonGoToSecondActivity.setOnClickListener {
-//            val fragment = SecondFragment()
-//            (activity as MainActivity).openFragment(fragment)
             viewModel?.toNextScreen(MainFragmentAction.OpenSecondFragment)
         }
 
@@ -79,8 +75,6 @@ class MainFragment : Fragment() {
         val noteButton = currentView.findViewById<AppCompatButton>(R.id.acb_go_to_notes_am)
 
         noteButton.setOnClickListener {
-//            val fragment = NotesFragment()
-//            (activity as MainActivity).openFragment(fragment)
             viewModel?.toNextScreen(MainFragmentAction.OpenNoteFragment)
         }
 

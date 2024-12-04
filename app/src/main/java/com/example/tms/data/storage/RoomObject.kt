@@ -19,4 +19,8 @@ object RoomObject {
     fun getFromDB(): MutableList<Note>? {
         return bd?.noteDao()?.getNotes()
     }
+
+    fun deleteFromDB(note: Note) {
+        bd?.noteDao()?.deleteNote(note)
+    }
 }

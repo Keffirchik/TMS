@@ -1,7 +1,6 @@
 package com.example.tms.presentation.view.fragments
 
 import AdapterClass
-import android.app.Application
 import com.example.tms.domain.models.Note
 import android.content.Intent
 import android.os.Bundle
@@ -98,21 +97,21 @@ class NotesFragment : Fragment() {
     }
 
     private fun deleteNoteAndRefresh(id: Int) {   //fixme
+        deleteFromDB(noteList?.get(id-1))
         noteList?.removeAt(id - 1)
-        saveNotesToPreferences()
         addNoteToListOfItems()
         return
     }
 
-    private fun saveNotesToPreferences() {
+    private fun deleteFromDB(note: Note?) {
 
         lifecycleScope.launch(Dispatchers.IO) {
-            for (i in 0..<noteList?.size!!) {
-                val note = noteList!![i]
-                RoomObject.putInDB(note)
-            }
-        }
 
+            if (note != null) {
+                RoomObject.deleteFromDB(note)
+            }
+
+        }
 
     }
 
