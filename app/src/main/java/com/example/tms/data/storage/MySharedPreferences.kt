@@ -69,4 +69,25 @@ class MySharedPreferences(context: Context?) {
         editor.apply()
     }
 
+    fun putLoginPassToPreferences(login: String, password: String) {
+
+        editor.putInt(
+            keyNoteCount,
+            1
+        )
+
+        editor.putString("login_$keyNoteCount", login)
+        editor.putString("password_$keyNoteCount", password)
+
+        editor.apply()
+    }
+
+    fun getLoginPassFromPreferences(): List<String?> {
+
+            val login = sharedPreferences?.getString("login_$keyNoteCount", "")
+            val password = sharedPreferences?.getString("password_$keyNoteCount", "")
+
+        return listOf(login, password)
+    }
+
 }

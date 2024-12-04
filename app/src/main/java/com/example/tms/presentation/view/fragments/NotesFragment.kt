@@ -33,7 +33,6 @@ class NotesFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initSharedPreferences()
-        RoomObject.initDB(Application())
     }
 
     override fun onCreateView(

@@ -4,10 +4,14 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.tms.presentation.view.fragments.MainFragment
 import com.example.tms.R
+import com.example.tms.data.storage.RoomObject
 import com.example.tms.databinding.ActivityMainBinding
 import com.example.tms.presentation.view_model.MyViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +33,9 @@ class MainActivity : AppCompatActivity() {
             openFragment(fragment)
         }
 
+        lifecycleScope.launch(Dispatchers.IO) {
+            RoomObject.initDB(application)
+        }
     }
 
     fun openFragment(fragment: Fragment) {

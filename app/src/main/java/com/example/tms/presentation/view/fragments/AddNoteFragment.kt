@@ -36,7 +36,6 @@ class AddNoteFragment : Fragment() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
                 .create(AddFragmentModel::class.java)
         initSharedPreferences()
-        RoomObject.initDB(Application())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
