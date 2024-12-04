@@ -33,9 +33,6 @@ class MainActivity : AppCompatActivity() {
             openFragment(fragment)
         }
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            RoomObject.initDB(application)
-        }
     }
 
     fun openFragment(fragment: Fragment) {

@@ -49,7 +49,6 @@ class NotesFragment : Fragment() {
         (listOfItems as ArrayList<NotesType>).clear()  //fixme
         (listOfItems as ArrayList<NotesType>).add(NotesType.InfoBlock("Infoblock")) //fixme
 
-        displayNotes()
 
         //add note button
         val addNote = currentView.findViewById<Button>(R.id.ll_addNote_nt)
@@ -68,6 +67,11 @@ class NotesFragment : Fragment() {
         return currentView
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        displayNotes()
+    }
+
     private fun initSharedPreferences() {
         sharedPreferences = MySharedPreferences(context)
     }
@@ -78,14 +82,19 @@ class NotesFragment : Fragment() {
     }
 
     private fun displayNotes() {
-        loadNotesFromPreferences()
-        addNoteToListOfItems()
-        recyclerView?.adapter = AdapterClass(listOfItems) { id, command ->
-            when (command) {
-                "delete" -> deleteNoteAndRefresh(id)
-                "share" -> shareNote(id)
-            }
+        lifecycleScope.launch(Dispatchers.IO) {
+            loadNotesFromPreferences()
+            addNoteToListOfItems()
+            launch(Dispatchers.Main) {
+                recyclerView?.adapter = AdapterClass(listOfItems) { id, command ->
+                when (command) {
+                    "delete" -> deleteNoteAndRefresh(id)
+                    "share" -> shareNote(id)
+                }
+            } }
+
         }
+
     }
 
     private fun deleteNoteAndRefresh(id: Int) {   //fixme
@@ -96,8 +105,6 @@ class NotesFragment : Fragment() {
     }
 
     private fun saveNotesToPreferences() {
-
-//        noteList?.let { sharedPreferences?.saveToPreferences(it) }
 
         lifecycleScope.launch(Dispatchers.IO) {
             for (i in 0..<noteList?.size!!) {
@@ -141,10 +148,10 @@ class NotesFragment : Fragment() {
         }
     }
 
-    private fun loadNotesFromPreferences() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            noteList = RoomObject.getFromDB()
-        }
+    private suspend fun loadNotesFromPreferences() {
+
+        noteList = RoomObject.getFromDB()
+
     }
 
 }

@@ -9,7 +9,7 @@ object RoomObject {
     private var bd: RoomDB? = null
 
     fun initDB(context: Application){
-        bd = context.let { Room.databaseBuilder(it, RoomDB::class.java, "MyDataBase").build() }
+        bd = Room.databaseBuilder(context, RoomDB::class.java, "MyDataBase").build()
     }
 
     fun putInDB(note: Note) {
@@ -17,6 +17,6 @@ object RoomObject {
     }
 
     fun getFromDB(): MutableList<Note>? {
-        return bd?.noteDao()?.getNote()
+        return bd?.noteDao()?.getNotes()
     }
 }

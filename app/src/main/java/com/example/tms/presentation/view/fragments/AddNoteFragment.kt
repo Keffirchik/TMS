@@ -1,6 +1,5 @@
 package com.example.tms.presentation.view.fragments
 
-import android.app.Application
 import android.icu.util.Calendar
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -35,7 +34,6 @@ class AddNoteFragment : Fragment() {
         viewModel =
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
                 .create(AddFragmentModel::class.java)
-        initSharedPreferences()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,10 +73,6 @@ class AddNoteFragment : Fragment() {
         return currentView
     }
 
-    private fun initSharedPreferences() {
-        sharedPreferences = MySharedPreferences(context)
-    }
-
     private fun saveNoteToPreferences(currentView: View?) {
         titleEditText = currentView?.findViewById(R.id.titleEditText)!!
         contentEditText = currentView.findViewById(R.id.contentEditText)!!
@@ -87,12 +81,11 @@ class AddNoteFragment : Fragment() {
         val content = contentEditText.text.toString()
         val noteDate = Calendar.getInstance().time.toString()
 
-        val note = Note(1, title, content, noteDate)
+        val note = Note(title = title, content = content, noteDate = noteDate)
 
         if (title.isNotEmpty() && content.isNotEmpty()) {
-//            sharedPreferences?.addElementsToPreferences(title, content, noteDate)
             lifecycleScope.launch(Dispatchers.IO) {
-               RoomObject.putInDB(note)
+                RoomObject.putInDB(note)
             }
 
         }
