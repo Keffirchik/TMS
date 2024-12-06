@@ -7,21 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.tms.R
-import com.example.tms.data.storage.MySharedPreferences
+import com.example.tms.data.storage.SPObject
 
 class SecondLoginFragment : Fragment() {
-
-    private var sharedPreferences: MySharedPreferences? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initSharedPreferences()
-
-    }
-
-    private fun initSharedPreferences() {
-        sharedPreferences = MySharedPreferences(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,11 +18,11 @@ class SecondLoginFragment : Fragment() {
 
         val currentView = inflater.inflate(R.layout.fragment_second_login, container, false)
 
-        val listOfLoginPass: List<String?>? = sharedPreferences?.getLoginPassFromPreferences()
-        val login: String? = listOfLoginPass?.get(0)
+        val listOfLoginPass: List<String?> = SPObject.getLoginPassFromPreferences()
+        val login: String? = listOfLoginPass[0]
 
         val textView = currentView.findViewById<TextView>(R.id.cl_second_text_view_slf)
-//        val login = arguments?.getString("loginInput")
+
         textView.text = "Hello $login we are happy to see you!"
 
         return currentView

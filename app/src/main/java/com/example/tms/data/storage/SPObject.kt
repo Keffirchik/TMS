@@ -12,8 +12,7 @@ object SPObject {
     private const val keyNoteCount: String = "NoteCount"
     private var noteList: MutableList<Note> = ArrayList()
 
-
-    private val editor: SharedPreferences.Editor = sharedPreferences?.edit()!!
+    private val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
     private val noteCount = sharedPreferences?.getInt(keyNoteCount, 0)
 
     fun initDB(context: Application){
@@ -25,17 +24,17 @@ object SPObject {
 
     fun saveToPreferences(noteList: MutableList<Note>) {
 
-        editor.putInt(
+        editor?.putInt(
             keyNoteCount,
             noteList.size
         )
         for (i in 0..<noteList.size) {
             val note = noteList[i]
-            editor.putString("note_title_$i", note.title)
-            editor.putString("note_content_$i", note.content)
-            editor.putString("note_date_$i", note.noteDate)
+            editor?.putString("note_title_$i", note.title)
+            editor?.putString("note_content_$i", note.content)
+            editor?.putString("note_date_$i", note.noteDate)
         }
-        editor.apply()
+        editor?.apply()
 
     }
 
@@ -59,31 +58,31 @@ object SPObject {
 
     fun addElementsToPreferences(title: String, content: String, noteDate: String) {
 
-        editor.putString("note_title_$noteCount", title)
-        editor.putString("note_content_$noteCount", content)
-        editor.putString("note_date_$noteCount", noteDate)
+        editor?.putString("note_title_$noteCount", title)
+        editor?.putString("note_content_$noteCount", content)
+        editor?.putString("note_date_$noteCount", noteDate)
 
         val newNoteCount = noteCount?.plus(1)
 
-        editor.putInt(
+        editor?.putInt(
             keyNoteCount,
             newNoteCount!!
         )
 
-        editor.apply()
+        editor?.apply()
     }
 
     fun putLoginPassToPreferences(login: String, password: String) {
 
-        editor.putInt(
+        editor?.putInt(
             keyNoteCount,
             1
         )
 
-        editor.putString("login_$keyNoteCount", login)
-        editor.putString("password_$keyNoteCount", password)
+        editor?.putString("login_$keyNoteCount", login)
+        editor?.putString("password_$keyNoteCount", password)
 
-        editor.apply()
+        editor?.apply()
     }
 
     fun getLoginPassFromPreferences(): List<String?> {
