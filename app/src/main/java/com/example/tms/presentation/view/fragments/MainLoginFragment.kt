@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.example.tms.R
 import com.example.tms.data.storage.MySharedPreferences
+import com.example.tms.data.storage.SPObject
 import com.example.tms.presentation.view.activities.MainActivity
 
 class MainLoginFragment : Fragment() {
@@ -21,7 +22,6 @@ class MainLoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initSharedPreferences()
-
     }
 
     override fun onCreateView(
@@ -38,9 +38,10 @@ class MainLoginFragment : Fragment() {
         val loginButton = currentView.findViewById<AppCompatButton>(R.id.ll_login_button_fml)
         loginButton.setOnClickListener {
 
-            val listOfLoginPass: List<String?>? = sharedPreferences?.getLoginPassFromPreferences()
-            val loginBD: String? = listOfLoginPass?.get(0)
-            val passwordBD: String? = listOfLoginPass?.get(1)
+//            val listOfLoginPass: List<String?>? = sharedPreferences?.getLoginPassFromPreferences()
+            val listOfLoginPass: List<String?> = SPObject.getLoginPassFromPreferences()
+            val loginBD: String? = listOfLoginPass[0]
+            val passwordBD: String? = listOfLoginPass[1]
 
             val login: String = usernameInput.text.toString()
             val password: String = passwordInput.text.toString()
@@ -50,7 +51,8 @@ class MainLoginFragment : Fragment() {
                 val fragment = SecondLoginFragment()
 //                bundle.putString("loginInput", usernameInput.text.toString())
 //                fragment.arguments = bundle
-                sharedPreferences?.putLoginPassToPreferences(login, password)
+                SPObject.putLoginPassToPreferences(login, password)
+//                sharedPreferences?.putLoginPassToPreferences(login, password)
                 (activity as MainActivity).openFragment(fragment)
 
 
