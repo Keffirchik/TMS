@@ -5,17 +5,16 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.view.activities.SplashActivity"
-    android:background="#030623">
+    tools:context=".presentation.view.fragments.SecondFragment">
 
-    <androidx.constraintlayout.utils.widget.ImageFilterView
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cl_go_to_main_button_fs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/tms_splash"
+        android:text="@string/go_to_main_screen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

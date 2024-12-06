@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">TMS</string>
-    <string name="main_button">Main button</string>
+    <string name="main_button">Login</string>
     <string name="go_to_second_screen">Go to second screen</string>
     <string name="go_to_main_screen">go to main screen</string>
     <string name="add_note">add note</string>
@@ -20,4 +20,21 @@
     <string name="notes">Notes:</string>
     <string name="note_title">Note Title</string>
     <string name="content_text">Content Text</string>
+    <string name="go_to_notes">Go to notes</string>
+    <string name="date">date</string>
+    <string name="note_content">Note content</string>
+    <string name="save_note">Save note</string>
+    <string name="cancel">Cancel</string>
+    <string name="go_to_main_screen_button">Go to main screen</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="recycle_notes">Recycle Notes:</string>
+    <string name="delete_note">Delete note</string>
+    <string name="go_to_recycler_notes">Go to recycler notes</string>
+    <string name="share_note">Share note</string>
+    <string name="infoblock">Infoblock</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="check_api">check api</string>
 </resources>

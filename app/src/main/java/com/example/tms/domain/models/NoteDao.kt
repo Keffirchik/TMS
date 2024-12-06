@@ -1,0 +1,20 @@
+package com.example.tms.domain.models
+
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+
+@Dao
+interface NoteDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun putNote(note:Note)
+
+    @Query("SELECT * FROM note")
+    fun getNotes(): MutableList<Note>
+
+    @Delete
+    fun deleteNote(note: Note)
+}
