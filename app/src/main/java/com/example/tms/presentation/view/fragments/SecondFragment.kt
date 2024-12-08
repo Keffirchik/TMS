@@ -5,21 +5,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatButton
 import com.example.tms.R
+import com.example.tms.databinding.FragmentSecondBinding
 
 class SecondFragment : Fragment() {
+
+    private var _binding: FragmentSecondBinding? = null
+    private val binding: FragmentSecondBinding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        val currentView = inflater.inflate(R.layout.fragment_second, container, false)
+        _binding = FragmentSecondBinding.inflate(inflater)
 
-        val buttonGoMainctivity =
-            currentView.findViewById<AppCompatButton>(R.id.cl_go_to_main_button_fs)
-        buttonGoMainctivity.setOnClickListener {
+//        val currentView = inflater.inflate(R.layout.fragment_second, container, false)
+
+//        val buttonGoMainctivity =
+//            currentView.findViewById<AppCompatButton>(R.id.cl_go_to_main_button_fs)
+//        buttonGoMainctivity.setOnClickListener {
+        binding.clGoToMainButtonFs.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.mainFragmentView, MainFragment())
                 .addToBackStack(null)
@@ -27,7 +33,12 @@ class SecondFragment : Fragment() {
 
         }
 
-        return currentView
+//        return currentView
+        return binding.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

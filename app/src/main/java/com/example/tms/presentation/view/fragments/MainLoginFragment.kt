@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
-import com.example.tms.R
 import com.example.tms.data.storage.SPObject
+import com.example.tms.databinding.FragmentMainLoginBinding
 import com.example.tms.presentation.view.activities.MainActivity
 
 class MainLoginFragment : Fragment() {
@@ -17,18 +16,26 @@ class MainLoginFragment : Fragment() {
     private lateinit var usernameInput: EditText
     private lateinit var passwordInput: EditText
 
+    private var _binding: FragmentMainLoginBinding? = null
+    private val binding: FragmentMainLoginBinding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        val currentView = inflater.inflate(R.layout.fragment_main_login, container, false)
+        _binding = FragmentMainLoginBinding.inflate(inflater)
 
-        usernameInput = currentView.findViewById(R.id.ll_username_input_fml)
-        passwordInput = currentView.findViewById(R.id.ll_password_input_fml)
+//        val currentView = inflater.inflate(R.layout.fragment_main_login, container, false)
 
-        val loginButton = currentView.findViewById<AppCompatButton>(R.id.ll_login_button_fml)
-        loginButton.setOnClickListener {
+//        usernameInput = currentView.findViewById(R.id.ll_username_input_fml)
+        usernameInput = binding.llUsernameInputFml
+//        passwordInput = currentView.findViewById(R.id.ll_password_input_fml)
+        passwordInput = binding.llPasswordInputFml
+
+//        val loginButton = currentView.findViewById<AppCompatButton>(R.id.ll_login_button_fml)
+//        loginButton.setOnClickListener {
+        binding.llLoginButtonFml.setOnClickListener {
 
             val listOfLoginPass: List<String?> = SPObject.getLoginPassFromPreferences()
             val loginBD: String? = listOfLoginPass[0]
@@ -62,7 +69,13 @@ class MainLoginFragment : Fragment() {
             }
         }
 
-        return currentView
+//        return currentView
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

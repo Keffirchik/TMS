@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tms.R
 import com.example.tms.data.storage.MySharedPreferences
 import com.example.tms.data.storage.RoomObject
+import com.example.tms.databinding.FragmentNotesBinding
 import com.example.tms.presentation.model.NotesType
 import com.example.tms.presentation.view.activities.MainActivity
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +29,9 @@ class NotesFragment : Fragment() {
 
     private var sharedPreferences: MySharedPreferences? = null
 
+    private var _binding: FragmentNotesBinding? = null
+    private val binding: FragmentNotesBinding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initSharedPreferences()
@@ -37,10 +40,13 @@ class NotesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        val currentView = inflater.inflate(R.layout.fragment_notes, container, false)
-        initRecyclerView(currentView)
+        _binding = FragmentNotesBinding.inflate(inflater)
+
+//        val currentView = inflater.inflate(R.layout.fragment_notes, container, false)
+        initRecyclerView(binding.root)
+//        initRecyclerView(currentView)
 
         noteList = ArrayList()
         listOfItems = ArrayList()
@@ -50,20 +56,28 @@ class NotesFragment : Fragment() {
 
 
         //add note button
-        val addNote = currentView.findViewById<Button>(R.id.ll_addNote_nt)
-        addNote.setOnClickListener {
+//        val addNote = currentView.findViewById<Button>(R.id.ll_addNote_nt)
+//        addNote.setOnClickListener {
+        binding.llAddNoteNt.setOnClickListener {
             val fragment = AddNoteFragment()
             (activity as MainActivity).openFragment(fragment)
         }
 
         //go to main button
-        val goToMain = currentView.findViewById<Button>(R.id.ll_goToMain_nf)
-        goToMain.setOnClickListener {
+//        val goToMain = currentView.findViewById<Button>(R.id.ll_goToMain_nf)
+//        goToMain.setOnClickListener {
+        binding.llGoToMainNf.setOnClickListener {
             val fragment = MainFragment()
             (activity as MainActivity).openFragment(fragment)
         }
 
-        return currentView
+//        return currentView
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

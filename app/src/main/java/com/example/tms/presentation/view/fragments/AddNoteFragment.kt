@@ -6,13 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.tms.R
-import com.example.tms.data.storage.MySharedPreferences
 import com.example.tms.data.storage.RoomObject
+import com.example.tms.databinding.FragmentAddNoteBinding
 import com.example.tms.domain.models.Note
 import com.example.tms.presentation.view.AddNoteFragmentAction
 import com.example.tms.presentation.view.activities.MainActivity
@@ -27,11 +26,15 @@ class AddNoteFragment : Fragment() {
     private lateinit var titleEditText: EditText
     private lateinit var contentEditText: EditText
 
+    private var _binding: FragmentAddNoteBinding? = null
+    private val binding: FragmentAddNoteBinding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel =
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
                 .create(AddFragmentModel::class.java)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,31 +47,39 @@ class AddNoteFragment : Fragment() {
 
             (activity as MainActivity).openFragment(fragment)
         }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        _binding = FragmentAddNoteBinding.inflate(inflater)
 
-        val currentView = inflater.inflate(R.layout.fragment_add_note, container, false)
+//        val currentView = inflater.inflate(R.layout.fragment_add_note, container, false)
 
         // save button
-        val saveButton = currentView.findViewById<Button>(R.id.ll_add_new_note_fan)
-        saveButton.setOnClickListener {
-            saveNoteToDB(currentView)
-
+//        val saveButton = currentView.findViewById<Button>(R.id.ll_add_new_note_fan)
+//        saveButton.setOnClickListener {
+        binding.llAddNewNoteFan.setOnClickListener {
+//            saveNoteToDB(currentView)
+            saveNoteToDB(binding.root)
             viewModel?.toNextScreen(AddNoteFragmentAction.OpenNoteFragmentAction)
         }
 
         // cancel button
-        val cancelButton = currentView.findViewById<Button>(R.id.ll_cancel_buttonLfan)
-        cancelButton.setOnClickListener {
-
+//        val cancelButton = currentView.findViewById<Button>(R.id.ll_cancel_buttonLfan)
+//        val cancelButton = currentView.findViewById<Button>(R.id.ll_cancel_buttonLfan)
+        binding.llCancelButtonLfan.setOnClickListener {
             viewModel?.toNextScreen(AddNoteFragmentAction.OpenNoteFragmentAction)
         }
+//        return currentView
+        return binding.root
+    }
 
-        return currentView
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     private fun saveNoteToDB(currentView: View?) {

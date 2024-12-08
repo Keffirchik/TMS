@@ -5,8 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#030623"
     tools:context=".presentation.view.activities.SplashActivity"
-    android:background="#030623">
+    tools:viewBindingIgnore="true">
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:layout_width="wrap_content"

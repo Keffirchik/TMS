@@ -6,11 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.tms.R
 import com.example.tms.data.api.DisneyAPI
+import com.example.tms.databinding.FragmentMainBinding
 import com.example.tms.presentation.view.MainFragmentAction
 import com.example.tms.presentation.view.activities.MainActivity
 import com.example.tms.presentation.view_model.MainFragmentModel
@@ -22,6 +21,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainFragment : Fragment() {
 
     private var viewModel: MainFragmentModel? = null
+    private var _binding: FragmentMainBinding? = null
+    private val binding: FragmentMainBinding get() = _binding!!
 
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://api.disneyapi.dev")
@@ -53,44 +54,46 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val currentView = inflater.inflate(R.layout.fragment_main, container, false)
+    ): View {
+        _binding = FragmentMainBinding.inflate(inflater)
+//        val currentView = inflater.inflate(R.layout.fragment_main, container, false)
 
         //login button
-        val buttonLogin = currentView.findViewById<AppCompatButton>(R.id.fragment_main_button)
+//        val buttonLogin = currentView.findViewById<AppCompatButton>(R.id.fragment_main_button)
 
-        buttonLogin.setOnClickListener {
+        binding.fragmentMainButton.setOnClickListener {
             viewModel?.toNextScreen(MainFragmentAction.OpenLoginFragment)
         }
 
         //button to second screen
-        val buttonGoToSecondActivity =
-            currentView.findViewById<AppCompatButton>(R.id.button_to_second_activity)
+//        val buttonGoToSecondActivity =
+//            currentView.findViewById<AppCompatButton>(R.id.button_to_second_activity)
 
-        buttonGoToSecondActivity.setOnClickListener {
+        binding.buttonToSecondActivity.setOnClickListener {
             viewModel?.toNextScreen(MainFragmentAction.OpenSecondFragment)
         }
 
         //button to notes
-        val noteButton = currentView.findViewById<AppCompatButton>(R.id.acb_go_to_notes_am)
+//        val noteButton = currentView.findViewById<AppCompatButton>(R.id.acb_go_to_notes_am)
 
-        noteButton.setOnClickListener {
+        binding.acbGoToNotesAm.setOnClickListener {
             viewModel?.toNextScreen(MainFragmentAction.OpenNoteFragment)
         }
 
         // api text button
-        val apiButton = currentView.findViewById<AppCompatButton>(R.id.acb_api_notes_am)
+//        val apiButton = currentView.findViewById<AppCompatButton>(R.id.acb_api_notes_am)
 
         val api = retrofit.create(DisneyAPI::class.java)
 
-        apiButton.setOnClickListener {
+        binding.acbApiNotesAm.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 val responseBody = api.getOneCharacter(308)
                 Log.d("Response", "$responseBody")
             }
         }
 
-        return currentView
+//        return currentView
+        return binding.root
     }
 
 }
