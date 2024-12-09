@@ -153,9 +153,7 @@ class NotesFragment : Fragment() {
     }
 
     private suspend fun loadNotesFromPreferences() {
-
         noteList = RoomObject.getFromDB()
-
     }
 
 }

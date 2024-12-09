@@ -15,7 +15,6 @@ import com.example.tms.data.storage.RoomObject
 import com.example.tms.databinding.FragmentAddNoteBinding
 import com.example.tms.domain.models.Note
 import com.example.tms.presentation.view.AddNoteFragmentAction
-import com.example.tms.presentation.view.activities.MainActivity
 import com.example.tms.presentation.view_model.AddFragmentModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,7 +41,7 @@ class AddNoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel?.publicLiveData?.observe(this.viewLifecycleOwner) { event ->
             if (event == null) return@observe
-            val fragment = when (event) {
+            when (event) {
                 AddNoteFragmentAction.OpenNoteFragmentAction -> NotesFragment()
             }
         }

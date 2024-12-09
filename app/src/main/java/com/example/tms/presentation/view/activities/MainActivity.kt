@@ -3,7 +3,6 @@ package com.example.tms.presentation.view.activities
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.example.tms.presentation.view.fragments.MainFragment
 import com.example.tms.R
 
