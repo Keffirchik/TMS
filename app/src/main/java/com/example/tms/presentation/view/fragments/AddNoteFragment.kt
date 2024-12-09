@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.tms.R
 import com.example.tms.data.storage.RoomObject
 import com.example.tms.databinding.FragmentAddNoteBinding
@@ -44,8 +45,6 @@ class AddNoteFragment : Fragment() {
             val fragment = when (event) {
                 AddNoteFragmentAction.OpenNoteFragmentAction -> NotesFragment()
             }
-
-            (activity as MainActivity).openFragment(fragment)
         }
 
     }
@@ -56,24 +55,16 @@ class AddNoteFragment : Fragment() {
     ): View {
         _binding = FragmentAddNoteBinding.inflate(inflater)
 
-//        val currentView = inflater.inflate(R.layout.fragment_add_note, container, false)
-
         // save button
-//        val saveButton = currentView.findViewById<Button>(R.id.ll_add_new_note_fan)
-//        saveButton.setOnClickListener {
         binding.llAddNewNoteFan.setOnClickListener {
-//            saveNoteToDB(currentView)
             saveNoteToDB(binding.root)
-            viewModel?.toNextScreen(AddNoteFragmentAction.OpenNoteFragmentAction)
+            findNavController().navigate(R.id.notesFragment)
         }
 
         // cancel button
-//        val cancelButton = currentView.findViewById<Button>(R.id.ll_cancel_buttonLfan)
-//        val cancelButton = currentView.findViewById<Button>(R.id.ll_cancel_buttonLfan)
         binding.llCancelButtonLfan.setOnClickListener {
-            viewModel?.toNextScreen(AddNoteFragmentAction.OpenNoteFragmentAction)
+            findNavController().navigate(R.id.notesFragment)
         }
-//        return currentView
         return binding.root
     }
 
@@ -96,9 +87,6 @@ class AddNoteFragment : Fragment() {
             lifecycleScope.launch(Dispatchers.IO) {
                 RoomObject.putInDB(note)
             }
-
         }
     }
-
-
 }

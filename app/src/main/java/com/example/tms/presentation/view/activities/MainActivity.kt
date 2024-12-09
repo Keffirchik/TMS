@@ -23,15 +23,16 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             val fragment = MainFragment()
-            openFragment(fragment)
+//            openFragment(fragment)
         }
 
     }
 
-    fun openFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.mainFragmentView, fragment)
-            .addToBackStack(null)
-            .commit()
-    }
+
+//    fun openFragment(fragment: Fragment) {
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.nav_graph, fragment)
+//            .addToBackStack(null)
+//            .commit()
+//    }
 }

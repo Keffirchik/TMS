@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.tms.R
 import com.example.tms.data.storage.SPObject
 import com.example.tms.databinding.FragmentMainLoginBinding
-import com.example.tms.presentation.view.activities.MainActivity
 
 class MainLoginFragment : Fragment() {
 
@@ -26,15 +27,9 @@ class MainLoginFragment : Fragment() {
 
         _binding = FragmentMainLoginBinding.inflate(inflater)
 
-//        val currentView = inflater.inflate(R.layout.fragment_main_login, container, false)
-
-//        usernameInput = currentView.findViewById(R.id.ll_username_input_fml)
         usernameInput = binding.llUsernameInputFml
-//        passwordInput = currentView.findViewById(R.id.ll_password_input_fml)
         passwordInput = binding.llPasswordInputFml
 
-//        val loginButton = currentView.findViewById<AppCompatButton>(R.id.ll_login_button_fml)
-//        loginButton.setOnClickListener {
         binding.llLoginButtonFml.setOnClickListener {
 
             val listOfLoginPass: List<String?> = SPObject.getLoginPassFromPreferences()
@@ -46,12 +41,7 @@ class MainLoginFragment : Fragment() {
 
             if (loginBD?.isEmpty() == true && login.length > 1 && password.length > 1) {
 
-                val fragment = SecondLoginFragment()
-
                 SPObject.putLoginPassToPreferences(login, password)
-
-                (activity as MainActivity).openFragment(fragment)
-
 
             } else if (login != loginBD || password != passwordBD) {
 
@@ -62,14 +52,10 @@ class MainLoginFragment : Fragment() {
                 toast.show()
 
             } else {
-
-                val fragment = SecondLoginFragment()
-                (activity as MainActivity).openFragment(fragment)
-
+                findNavController().navigate(R.id.action_mainLoginFragment_to_secondLoginFragment)
             }
         }
 
-//        return currentView
         return binding.root
     }
 

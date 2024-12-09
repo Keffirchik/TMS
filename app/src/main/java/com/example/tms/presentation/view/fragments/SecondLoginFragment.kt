@@ -20,17 +20,11 @@ class SecondLoginFragment : Fragment() {
 
         _binding = FragmentSecondLoginBinding.inflate(inflater)
 
-//        val currentView = inflater.inflate(R.layout.fragment_second_login, container, false)
-
         val listOfLoginPass: List<String?> = SPObject.getLoginPassFromPreferences()
         val login: String? = listOfLoginPass[0]
 
-//        val textView = currentView.findViewById<TextView>(R.id.cl_second_text_view_slf)
-
-//        textView.text = "Hello $login we are happy to see you!"
         binding.clSecondTextViewSlf.text = "Hello $login we are happy to see you!"
 
-//        return currentView
         return binding.root
     }
 

@@ -8,10 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.tms.R
 import com.example.tms.data.api.DisneyAPI
 import com.example.tms.databinding.FragmentMainBinding
 import com.example.tms.presentation.view.MainFragmentAction
-import com.example.tms.presentation.view.activities.MainActivity
 import com.example.tms.presentation.view_model.MainFragmentModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -41,13 +42,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel?.publicLiveData?.observe(this.viewLifecycleOwner) { event ->
             if (event == null) return@observe
-            val fragment = when (event) {
-                MainFragmentAction.OpenLoginFragment -> MainLoginFragment()
-                MainFragmentAction.OpenNoteFragment -> NotesFragment()
-                MainFragmentAction.OpenSecondFragment -> SecondFragment()
-            }
 
-            (activity as MainActivity).openFragment(fragment)
         }
     }
 
@@ -56,33 +51,24 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater)
-//        val currentView = inflater.inflate(R.layout.fragment_main, container, false)
 
         //login button
-//        val buttonLogin = currentView.findViewById<AppCompatButton>(R.id.fragment_main_button)
-
         binding.fragmentMainButton.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_mainLoginFragment)
             viewModel?.toNextScreen(MainFragmentAction.OpenLoginFragment)
         }
 
         //button to second screen
-//        val buttonGoToSecondActivity =
-//            currentView.findViewById<AppCompatButton>(R.id.button_to_second_activity)
-
         binding.buttonToSecondActivity.setOnClickListener {
-            viewModel?.toNextScreen(MainFragmentAction.OpenSecondFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_secondFragment)
         }
 
         //button to notes
-//        val noteButton = currentView.findViewById<AppCompatButton>(R.id.acb_go_to_notes_am)
-
         binding.acbGoToNotesAm.setOnClickListener {
-            viewModel?.toNextScreen(MainFragmentAction.OpenNoteFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_notesFragment)
         }
 
         // api text button
-//        val apiButton = currentView.findViewById<AppCompatButton>(R.id.acb_api_notes_am)
-
         val api = retrofit.create(DisneyAPI::class.java)
 
         binding.acbApiNotesAm.setOnClickListener {
@@ -92,7 +78,6 @@ class MainFragment : Fragment() {
             }
         }
 
-//        return currentView
         return binding.root
     }
 
