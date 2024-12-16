@@ -50,6 +50,7 @@ class MainLoginFragment : Fragment() {
 
                 val toast = Toast.makeText(context, text, duration)
                 toast.show()
+                binding.customView.showError("Wrong login or password")
 
             } else {
                 findNavController().navigate(R.id.action_mainLoginFragment_to_secondLoginFragment)

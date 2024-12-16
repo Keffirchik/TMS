@@ -12,10 +12,14 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.isVisible
 import com.example.tms.R
 
-class CustomView(private val myContext: Context, private val attrs: AttributeSet?) : View(myContext, attrs) {
+class CustomView(private val myContext: Context, private val attrs: AttributeSet?) :
+    View(myContext, attrs) {
 
     private var count: Int? = null
     private var image: AppCompatImageView? = null
+    private var customText: String = ""
+    private val paintWhite = Paint()
+    private val paintRed = Paint()
 
     init {
         initAttrs(attrs)
@@ -26,15 +30,19 @@ class CustomView(private val myContext: Context, private val attrs: AttributeSet
         image = AppCompatImageView(context, attrs)
         val params = image?.layoutParams
         params?.height = 60
-
     }
 
-    fun setDrawable(drawable: Drawable){
-     image?.setImageDrawable(drawable)
+    fun setDrawable(drawable: Drawable) {
+        image?.setImageDrawable(drawable)
     }
 
     fun setCount(count: Int) {
         this.count = count
+    }
+
+    fun showError(text: String) {
+        this.customText = text
+        this.isVisible = true
     }
 
     private fun initAttrs(attrs: AttributeSet?) {
@@ -46,10 +54,13 @@ class CustomView(private val myContext: Context, private val attrs: AttributeSet
         typedArray.recycle()
     }
 
-    val paint = Paint()
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        paint.setColor(Color.RED)
+        paintWhite.color = Color.WHITE
+        paintRed.color = Color.RED
+        paintWhite.style = Paint.Style.FILL
+        paintRed.style = Paint.Style.FILL
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -57,7 +68,10 @@ class CustomView(private val myContext: Context, private val attrs: AttributeSet
     }
 
     override fun onDraw(canvas: Canvas) {
-        canvas.drawCircle(10F, 10F, 10F, paint)
+//        canvas.drawCircle(10F, 10F, 10F, paint)
+//        canvas.drawRect(0f, 0f, 600f, 400f, paintWhite)
+        canvas.drawColor(Color.WHITE)
+        canvas.drawText(customText, 50F, 60F, paintRed)
         super.onDraw(canvas)
     }
 

@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="CustomView">
         <attr name="customViewValue" format="integer" />
+        <attr name="customViewText" format="string" />
     </declare-styleable>
 </resources>
