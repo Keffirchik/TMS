@@ -10,7 +10,9 @@ import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.tms.App
 import com.example.tms.R
+import com.example.tms.data.storage.RoomDB
 import com.example.tms.data.storage.RoomObject
 import com.example.tms.databinding.FragmentAddNoteBinding
 import com.example.tms.domain.models.Note
@@ -18,6 +20,7 @@ import com.example.tms.presentation.view.AddNoteFragmentAction
 import com.example.tms.presentation.view_model.AddFragmentModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class AddNoteFragment : Fragment() {
 
@@ -29,8 +32,14 @@ class AddNoteFragment : Fragment() {
     private var _binding: FragmentAddNoteBinding? = null
     private val binding: FragmentAddNoteBinding get() = _binding!!
 
+    @Inject
+    lateinit var roomDB: RoomDB
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        (requireActivity().application as App).appComponent?.inject(this)
+
         viewModel =
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
                 .create(AddFragmentModel::class.java)
@@ -84,7 +93,8 @@ class AddNoteFragment : Fragment() {
 
         if (title.isNotEmpty() && content.isNotEmpty()) {
             lifecycleScope.launch(Dispatchers.IO) {
-                RoomObject.putInDB(note)
+//                RoomObject.putInDB(note)
+                roomDB.noteDao().putNote(note)
             }
         }
     }

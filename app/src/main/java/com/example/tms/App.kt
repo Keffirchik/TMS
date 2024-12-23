@@ -6,11 +6,12 @@ import com.example.tms.data.storage.SharedPreferencesObject
 
 class App: Application() {
 
-    var appComponent: AppComponent = DaggerAppComponent.create()
+    var appComponent: AppComponent? = null
 
     override fun onCreate() {
         super.onCreate()
-        RoomObject.initDB(this)
+        appComponent = DaggerAppComponent.builder().context(this).build()
+//        RoomObject.initDB(this)
         SharedPreferencesObject.initDB(this)
     }
 }

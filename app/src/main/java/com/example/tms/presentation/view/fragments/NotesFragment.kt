@@ -8,17 +8,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.window.application
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tms.App
 import com.example.tms.R
 import com.example.tms.data.storage.MySharedPreferences
+import com.example.tms.data.storage.RoomDB
 import com.example.tms.data.storage.RoomObject
 import com.example.tms.databinding.FragmentNotesBinding
 import com.example.tms.presentation.model.NotesType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class NotesFragment : Fragment() {
 
@@ -32,9 +36,14 @@ class NotesFragment : Fragment() {
     private var _binding: FragmentNotesBinding? = null
     private val binding: FragmentNotesBinding get() = _binding!!
 
+    @Inject
+    lateinit var roomDB: RoomDB
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initSharedPreferences()
+
+        (requireActivity().application as App).appComponent?.inject(this)
     }
 
     override fun onCreateView(
@@ -113,7 +122,8 @@ class NotesFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
 
             if (note != null) {
-                RoomObject.deleteFromDB(note)
+                roomDB.noteDao().deleteNote(note)
+//                RoomObject.deleteFromDB(note)
             }
 
         }
@@ -153,7 +163,8 @@ class NotesFragment : Fragment() {
     }
 
     private suspend fun loadNotesFromPreferences() {
-        noteList = RoomObject.getFromDB()
+//        noteList = RoomObject.getFromDB()
+        noteList = roomDB.noteDao().getNotes()
     }
 
 }

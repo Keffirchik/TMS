@@ -8,6 +8,6 @@ import dagger.Provides
 @Module
 class SharedPreferenceModule {
 
-    @Provides
-    fun provideSharedPreference(): MySharedPreferences = SharedPreferencesObject()
+//    @Provides
+//    fun provideSharedPreference(): MySharedPreferences = SharedPreferencesObject()
 }
