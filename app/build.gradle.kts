@@ -67,4 +67,9 @@ dependencies {
     implementation(libs.androidx.room.ktx)
 //    kapt(libs.androidx.room.compiler)
     kapt("androidx.room:room-compiler:2.6.1")
+
+    //Dagger 2
+    implementation("com.google.dagger:dagger:2.51.1")
+    kapt("com.google.dagger:dagger-compiler:2.48")
+
 }

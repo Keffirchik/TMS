@@ -5,7 +5,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.example.tms.domain.models.Note
 
-object SPObject {
+object SharedPreferencesObject {
 
     private var sharedPreferences: SharedPreferences? = null
     private const val prefsName: String = "NotePrefs"

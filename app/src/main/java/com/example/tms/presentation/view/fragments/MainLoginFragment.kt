@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.tms.R
-import com.example.tms.data.storage.SPObject
+import com.example.tms.data.storage.SharedPreferencesObject
 import com.example.tms.databinding.FragmentMainLoginBinding
 
 class MainLoginFragment : Fragment() {
@@ -32,7 +32,7 @@ class MainLoginFragment : Fragment() {
 
         binding.llLoginButtonFml.setOnClickListener {
 
-            val listOfLoginPass: List<String?> = SPObject.getLoginPassFromPreferences()
+            val listOfLoginPass: List<String?> = SharedPreferencesObject.getLoginPassFromPreferences()
             val loginBD: String? = listOfLoginPass[0]
             val passwordBD: String? = listOfLoginPass[1]
 
@@ -41,7 +41,7 @@ class MainLoginFragment : Fragment() {
 
             if (loginBD?.isEmpty() == true && login.length > 1 && password.length > 1) {
 
-                SPObject.putLoginPassToPreferences(login, password)
+                SharedPreferencesObject.putLoginPassToPreferences(login, password)
 
             } else if (login != loginBD || password != passwordBD) {
 

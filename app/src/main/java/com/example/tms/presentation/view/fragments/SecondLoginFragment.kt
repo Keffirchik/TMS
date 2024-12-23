@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.tms.data.storage.SPObject
+import com.example.tms.data.storage.SharedPreferencesObject
 import com.example.tms.databinding.FragmentSecondLoginBinding
 
 class SecondLoginFragment : Fragment() {
@@ -20,7 +20,7 @@ class SecondLoginFragment : Fragment() {
 
         _binding = FragmentSecondLoginBinding.inflate(inflater)
 
-        val listOfLoginPass: List<String?> = SPObject.getLoginPassFromPreferences()
+        val listOfLoginPass: List<String?> = SharedPreferencesObject.getLoginPassFromPreferences()
         val login: String? = listOfLoginPass[0]
 
         binding.clSecondTextViewSlf.text = "Hello $login we are happy to see you!"

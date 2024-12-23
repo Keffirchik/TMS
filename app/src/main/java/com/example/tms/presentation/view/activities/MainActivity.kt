@@ -3,6 +3,7 @@ package com.example.tms.presentation.view.activities
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.tms.App
 import com.example.tms.presentation.view.fragments.MainFragment
 import com.example.tms.R
 
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+//        (application as App).appComponent.inject(this)
 
 //        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(MyViewModel::class.java)
 //        _binding = ActivityMainBinding.inflate(LayoutInflater)
