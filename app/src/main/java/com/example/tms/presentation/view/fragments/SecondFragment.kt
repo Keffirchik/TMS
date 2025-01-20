@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.example.tms.App
 import com.example.tms.R
+import com.example.tms.data.storage.RoomDB
+import com.example.tms.data.storage.SharedPreferencesDB
 import com.example.tms.databinding.FragmentSecondBinding
+import javax.inject.Inject
 
 class SecondFragment : Fragment() {
 

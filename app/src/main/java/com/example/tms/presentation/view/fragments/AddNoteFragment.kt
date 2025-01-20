@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.tms.App
 import com.example.tms.R
 import com.example.tms.data.storage.RoomDB
-import com.example.tms.data.storage.RoomObject
+import com.example.tms.data.storage.SharedPreferencesDB
 import com.example.tms.databinding.FragmentAddNoteBinding
 import com.example.tms.domain.models.Note
 import com.example.tms.presentation.view.AddNoteFragmentAction
@@ -34,6 +34,7 @@ class AddNoteFragment : Fragment() {
 
     @Inject
     lateinit var roomDB: RoomDB
+    lateinit var sharedPreferencesDB: SharedPreferencesDB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

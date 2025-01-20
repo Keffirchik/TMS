@@ -1,13 +1,19 @@
 package com.example.tms.di
 
-import com.example.tms.data.storage.MySharedPreferences
-import com.example.tms.data.storage.SharedPreferencesObject
+import android.content.Context
+import android.content.SharedPreferences
+import com.example.tms.data.storage.SharedPreferencesDB
+import com.example.tms.di.scope.CustomScope
 import dagger.Module
 import dagger.Provides
 
 @Module
 class SharedPreferenceModule {
 
-//    @Provides
-//    fun provideSharedPreference(): MySharedPreferences = SharedPreferencesObject()
+    @Provides
+    @CustomScope
+    fun provideSharedPreference(context: Context): SharedPreferences = SharedPreferencesDB(context).getInstance()
+
+
+
 }

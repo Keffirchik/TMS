@@ -8,16 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.window.application
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tms.App
 import com.example.tms.R
-import com.example.tms.data.storage.MySharedPreferences
 import com.example.tms.data.storage.RoomDB
-import com.example.tms.data.storage.RoomObject
 import com.example.tms.databinding.FragmentNotesBinding
 import com.example.tms.presentation.model.NotesType
 import kotlinx.coroutines.Dispatchers
@@ -31,8 +28,6 @@ class NotesFragment : Fragment() {
 
     private var recyclerView: RecyclerView? = null
 
-    private var sharedPreferences: MySharedPreferences? = null
-
     private var _binding: FragmentNotesBinding? = null
     private val binding: FragmentNotesBinding get() = _binding!!
 
@@ -41,7 +36,6 @@ class NotesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initSharedPreferences()
 
         (requireActivity().application as App).appComponent?.inject(this)
     }
@@ -82,10 +76,6 @@ class NotesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         displayNotes()
-    }
-
-    private fun initSharedPreferences() {
-        sharedPreferences = MySharedPreferences(context)
     }
 
     private fun initRecyclerView(currentView: View?) {

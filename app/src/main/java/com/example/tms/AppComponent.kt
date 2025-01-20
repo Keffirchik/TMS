@@ -6,7 +6,9 @@ import com.example.tms.di.SharedPreferenceModule
 import com.example.tms.di.scope.CustomScope
 import com.example.tms.presentation.view.activities.MainActivity
 import com.example.tms.presentation.view.fragments.AddNoteFragment
+import com.example.tms.presentation.view.fragments.MainLoginFragment
 import com.example.tms.presentation.view.fragments.NotesFragment
+import com.example.tms.presentation.view.fragments.SecondLoginFragment
 import dagger.BindsInstance
 import dagger.Component
 
@@ -26,4 +28,8 @@ interface AppComponent {
     fun inject(notesFragment: NotesFragment)
 
     fun inject(addNoteFragment: AddNoteFragment)
+
+    fun inject(mainLoginFragment: MainLoginFragment)
+
+    fun inject(secondLoginFragment: SecondLoginFragment)
 }

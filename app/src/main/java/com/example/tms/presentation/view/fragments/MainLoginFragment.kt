@@ -1,5 +1,6 @@
 package com.example.tms.presentation.view.fragments
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +9,13 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.tms.App
 import com.example.tms.R
+import com.example.tms.data.storage.RoomDB
+import com.example.tms.data.storage.SharedPreferencesDB
 import com.example.tms.data.storage.SharedPreferencesObject
 import com.example.tms.databinding.FragmentMainLoginBinding
+import javax.inject.Inject
 
 class MainLoginFragment : Fragment() {
 
@@ -19,6 +24,14 @@ class MainLoginFragment : Fragment() {
 
     private var _binding: FragmentMainLoginBinding? = null
     private val binding: FragmentMainLoginBinding get() = _binding!!
+
+    @Inject
+    lateinit var sharedPreferencesDB: SharedPreferences
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (requireActivity().application as App).appComponent?.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +45,8 @@ class MainLoginFragment : Fragment() {
 
         binding.llLoginButtonFml.setOnClickListener {
 
-            val listOfLoginPass: List<String?> = SharedPreferencesObject.getLoginPassFromPreferences()
+            val listOfLoginPass: List<String?> = (sharedPreferencesDB as SharedPreferencesDB).getLoginPassFromPreferences()
+//            val listOfLoginPass: List<String?> = SharedPreferencesObject.getLoginPassFromPreferences()
             val loginBD: String? = listOfLoginPass[0]
             val passwordBD: String? = listOfLoginPass[1]
 
@@ -41,7 +55,8 @@ class MainLoginFragment : Fragment() {
 
             if (loginBD?.isEmpty() == true && login.length > 1 && password.length > 1) {
 
-                SharedPreferencesObject.putLoginPassToPreferences(login, password)
+                (sharedPreferencesDB as SharedPreferencesDB).putLoginPassToPreferences(login, password)
+//                SharedPreferencesObject.putLoginPassToPreferences(login, password)
 
             } else if (login != loginBD || password != passwordBD) {
 
